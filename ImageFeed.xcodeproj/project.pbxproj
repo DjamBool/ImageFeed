@@ -13,6 +13,7 @@
 		30D9B35D2A9CD59C0086FE71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D9B35B2A9CD59C0086FE71 /* Main.storyboard */; };
 		30D9B35F2A9CD59D0086FE71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D9B35E2A9CD59D0086FE71 /* Assets.xcassets */; };
 		30D9B3622A9CD59D0086FE71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D9B3602A9CD59D0086FE71 /* LaunchScreen.storyboard */; };
+		30D9B38C2A9E2AAA0086FE71 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D9B38B2A9E2AAA0086FE71 /* ImagesListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		30D9B35E2A9CD59D0086FE71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30D9B3612A9CD59D0086FE71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30D9B3632A9CD59D0086FE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30D9B38B2A9E2AAA0086FE71 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +60,22 @@
 			children = (
 				30D9B3552A9CD59C0086FE71 /* AppDelegate.swift */,
 				30D9B3572A9CD59C0086FE71 /* SceneDelegate.swift */,
-				30D9B3592A9CD59C0086FE71 /* ImagesListViewController.swift */,
+				30D9B38D2A9E2ABF0086FE71 /* ImageList */,
 				30D9B35B2A9CD59C0086FE71 /* Main.storyboard */,
 				30D9B35E2A9CD59D0086FE71 /* Assets.xcassets */,
 				30D9B3602A9CD59D0086FE71 /* LaunchScreen.storyboard */,
 				30D9B3632A9CD59D0086FE71 /* Info.plist */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		30D9B38D2A9E2ABF0086FE71 /* ImageList */ = {
+			isa = PBXGroup;
+			children = (
+				30D9B3592A9CD59C0086FE71 /* ImagesListViewController.swift */,
+				30D9B38B2A9E2AAA0086FE71 /* ImagesListCell.swift */,
+			);
+			path = ImageList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D9B35A2A9CD59C0086FE71 /* ImagesListViewController.swift in Sources */,
+				30D9B38C2A9E2AAA0086FE71 /* ImagesListCell.swift in Sources */,
 				30D9B3562A9CD59C0086FE71 /* AppDelegate.swift in Sources */,
 				30D9B3582A9CD59C0086FE71 /* SceneDelegate.swift in Sources */,
 			);
