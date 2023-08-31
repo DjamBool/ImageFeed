@@ -48,8 +48,8 @@
                                                     <buttonConfiguration key="configuration" style="plain" image="Active" title=""/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="31 августа 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwK-yV-hqQ">
-                                                    <rect key="frame" x="24" y="207.5" width="127" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="24" y="212" width="101" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" name="YP White"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
