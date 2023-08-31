@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="jPE-Kz-ji9">
-                                                    <rect key="frame" x="16" y="0.0" width="382" height="240"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="232"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="16"/>
@@ -38,7 +38,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-Ow-jf8">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-Ow-jf8" userLabel="Like Button">
                                                     <rect key="frame" x="350" y="11" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="e5z-D9-QEY"/>
@@ -48,7 +48,7 @@
                                                     <buttonConfiguration key="configuration" style="plain" image="Active" title=""/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="31 августа 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwK-yV-hqQ">
-                                                    <rect key="frame" x="28" y="219" width="152" height="18"/>
+                                                    <rect key="frame" x="28" y="214" width="152" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="fsU-CG-20p"/>
                                                         <constraint firstAttribute="width" constant="152" id="uia-pg-iqP"/>
@@ -59,17 +59,30 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="WwK-yV-hqQ" secondAttribute="bottom" constant="8" id="55F-bj-Scv"/>
                                                 <constraint firstItem="WwK-yV-hqQ" firstAttribute="bottom" secondItem="b9P-gm-E9d" secondAttribute="bottomMargin" constant="8" id="ChF-t9-7UV"/>
                                                 <constraint firstItem="jzO-Ow-jf8" firstAttribute="top" secondItem="b9P-gm-E9d" secondAttribute="topMargin" id="HTP-hm-oI3"/>
+                                                <constraint firstAttribute="bottom" secondItem="jPE-Kz-ji9" secondAttribute="bottom" constant="4" id="JtG-V6-JJh"/>
                                                 <constraint firstItem="jPE-Kz-ji9" firstAttribute="leading" secondItem="b9P-gm-E9d" secondAttribute="leading" constant="16" id="RCT-Au-Aru"/>
-                                                <constraint firstItem="jPE-Kz-ji9" firstAttribute="top" secondItem="b9P-gm-E9d" secondAttribute="top" id="TA0-pM-6zT"/>
+                                                <constraint firstItem="jPE-Kz-ji9" firstAttribute="top" secondItem="b9P-gm-E9d" secondAttribute="top" constant="4" id="TA0-pM-6zT"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jzO-Ow-jf8" secondAttribute="trailing" id="dce-1i-ldN"/>
                                                 <constraint firstAttribute="trailing" secondItem="jPE-Kz-ji9" secondAttribute="trailing" constant="16" id="j7J-dz-Ouf"/>
                                                 <constraint firstAttribute="bottom" secondItem="jPE-Kz-ji9" secondAttribute="bottomMargin" constant="8" id="kKA-t9-ok3"/>
                                                 <constraint firstItem="WwK-yV-hqQ" firstAttribute="leading" secondItem="b9P-gm-E9d" secondAttribute="leadingMargin" constant="8" id="nzc-jb-ChI"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="kKA-t9-ok3"/>
+                                                    <exclude reference="ChF-t9-7UV"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cellImage" destination="jPE-Kz-ji9" id="Gut-bA-1iG"/>
+                                            <outlet property="dateLabel" destination="WwK-yV-hqQ" id="7bl-IO-Oka"/>
+                                            <outlet property="likeButton" destination="jzO-Ow-jf8" id="6TJ-Fk-UGZ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <userDefinedRuntimeAttributes>
