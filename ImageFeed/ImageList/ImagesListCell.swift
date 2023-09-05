@@ -32,7 +32,6 @@ final class ImagesListCell: UITableViewCell {
         
         cellImage.addSubview(gradientView)
         gradientView.layer.addSublayer(gradient)
-        //gradientView.addSubview(dateLabel)
         dateLabel.layer.opacity = 0.9
     }
 }
