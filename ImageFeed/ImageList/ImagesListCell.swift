@@ -19,6 +19,14 @@ final class ImagesListCell: UITableViewCell {
         makeGradient()
     }
     
+    func configCell(image: UIImage?, date: String, isLiked: Bool) {
+        cellImage.image = image
+        dateLabel.text = date
+        
+        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+        likeButton.setImage(likeImage, for: .normal)
+    }
+    
     private func makeGradient() {
         let gradient = CAGradientLayer()
         let colorStart = #colorLiteral(red: 0.6823529412, green: 0.6862745098, blue: 0.7058823529, alpha: 1).cgColor
