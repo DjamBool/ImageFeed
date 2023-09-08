@@ -43,50 +43,52 @@
                                     <action selector="exitButton:" destination="noZ-l2-zic" eventType="touchUpInside" id="Uv8-RY-soj"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zl-2C-yas">
-                                <rect key="frame" x="16" y="154" width="241" height="23"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="23" id="B07-hf-KlU"/>
-                                    <constraint firstAttribute="width" constant="241" id="HPa-aq-SnT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="18"/>
-                                <color key="textColor" name="YP White"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kS-sv-ec4">
-                                <rect key="frame" x="16" y="185" width="99" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="99" id="b2X-Co-rJ0"/>
-                                    <constraint firstAttribute="height" constant="18" id="x9Y-59-cOZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
-                                <color key="textColor" name="YP Gray"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKV-CD-LHQ">
-                                <rect key="frame" x="16" y="211" width="77" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="2tt-yP-fBl"/>
-                                    <constraint firstAttribute="width" constant="77" id="UJa-eF-dJQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
-                                <color key="textColor" name="YP White"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LTv-qZ-sap">
+                                <rect key="frame" x="16" y="154" width="382" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zl-2C-yas">
+                                        <rect key="frame" x="0.0" y="0.0" width="241" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="B07-hf-KlU"/>
+                                            <constraint firstAttribute="width" constant="241" id="HPa-aq-SnT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="18"/>
+                                        <color key="textColor" name="YP White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kS-sv-ec4">
+                                        <rect key="frame" x="0.0" y="31" width="99" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="99" id="b2X-Co-rJ0"/>
+                                            <constraint firstAttribute="height" constant="18" id="x9Y-59-cOZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <color key="textColor" name="YP Gray"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKV-CD-LHQ">
+                                        <rect key="frame" x="0.0" y="57" width="77" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="2tt-yP-fBl"/>
+                                            <constraint firstAttribute="width" constant="77" id="UJa-eF-dJQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <color key="textColor" name="YP White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fFH-5R-aVP"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="7kS-sv-ec4" firstAttribute="leading" secondItem="fFH-5R-aVP" secondAttribute="leading" constant="16" id="69N-ZQ-8NH"/>
-                            <constraint firstItem="uKV-CD-LHQ" firstAttribute="top" secondItem="7kS-sv-ec4" secondAttribute="bottom" constant="8" id="6ZV-0v-aCY"/>
-                            <constraint firstItem="3Zl-2C-yas" firstAttribute="leading" secondItem="fFH-5R-aVP" secondAttribute="leading" constant="16" id="Bap-rp-Tlo"/>
                             <constraint firstItem="ChH-kb-RDj" firstAttribute="leading" secondItem="fFH-5R-aVP" secondAttribute="leading" constant="16" id="ITV-26-ZWV"/>
-                            <constraint firstItem="uKV-CD-LHQ" firstAttribute="leading" secondItem="fFH-5R-aVP" secondAttribute="leading" constant="16" id="UCt-Kj-mQR"/>
-                            <constraint firstItem="7kS-sv-ec4" firstAttribute="top" secondItem="3Zl-2C-yas" secondAttribute="bottom" constant="8" id="bGa-17-XMW"/>
+                            <constraint firstItem="LTv-qZ-sap" firstAttribute="leading" secondItem="fFH-5R-aVP" secondAttribute="leading" constant="16" id="Kzo-wu-Eyj"/>
                             <constraint firstItem="ChH-kb-RDj" firstAttribute="top" secondItem="hY2-3K-C4M" secondAttribute="top" constant="76" id="cvT-Bh-15j"/>
                             <constraint firstItem="jTo-dh-bD1" firstAttribute="top" secondItem="hY2-3K-C4M" secondAttribute="top" constant="89" id="eRK-PN-eWC"/>
+                            <constraint firstItem="LTv-qZ-sap" firstAttribute="top" secondItem="ChH-kb-RDj" secondAttribute="bottom" constant="8" id="o9z-8P-Hpt"/>
+                            <constraint firstItem="fFH-5R-aVP" firstAttribute="trailing" secondItem="LTv-qZ-sap" secondAttribute="trailing" constant="16" id="vG6-il-Cu3"/>
                             <constraint firstItem="fFH-5R-aVP" firstAttribute="trailing" secondItem="jTo-dh-bD1" secondAttribute="trailing" constant="16" id="wcw-gc-j6p"/>
-                            <constraint firstItem="3Zl-2C-yas" firstAttribute="top" secondItem="ChH-kb-RDj" secondAttribute="bottom" constant="8" id="ymw-hb-LeP"/>
                         </constraints>
                     </view>
                     <connections>
