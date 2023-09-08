@@ -9,17 +9,18 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var profileNameLabel: UILabel!
-    @IBOutlet weak var profileEmailLabel: UILabel!
-    @IBOutlet weak var profileStatusLabel: UILabel!
+    @IBOutlet private var profileImageView: UIImageView!
+    @IBOutlet private var profileNameLabel: UILabel!
+    @IBOutlet private var profileEmailLabel: UILabel!
+    @IBOutlet private var profileStatusLabel: UILabel!
+    @IBOutlet private var exitButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
     
-    @IBAction func exitButton(_ sender: Any) {
+    @IBAction private func exitButtonAction(_ sender: Any) {
         
     }
 }

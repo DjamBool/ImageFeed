@@ -92,6 +92,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="exitButton" destination="jTo-dh-bD1" id="1Ep-Tx-JFZ"/>
                         <outlet property="profileEmailLabel" destination="7kS-sv-ec4" id="JXS-oR-8gr"/>
                         <outlet property="profileImageView" destination="ChH-kb-RDj" id="iO9-De-SaZ"/>
                         <outlet property="profileNameLabel" destination="3Zl-2C-yas" id="FLT-um-Io6"/>
