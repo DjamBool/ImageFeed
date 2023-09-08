@@ -33,6 +33,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="Exit" title=""/>
+                                <connections>
+                                    <action selector="exitButton:" destination="noZ-l2-zic" eventType="touchUpInside" id="Uv8-RY-soj"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zl-2C-yas">
                                 <rect key="frame" x="16" y="154" width="241" height="23"/>
@@ -80,6 +83,12 @@
                             <constraint firstItem="3Zl-2C-yas" firstAttribute="top" secondItem="ChH-kb-RDj" secondAttribute="bottom" constant="8" id="ymw-hb-LeP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="profileEmailLabel" destination="7kS-sv-ec4" id="JXS-oR-8gr"/>
+                        <outlet property="profileImageView" destination="ChH-kb-RDj" id="iO9-De-SaZ"/>
+                        <outlet property="profileNameLabel" destination="3Zl-2C-yas" id="FLT-um-Io6"/>
+                        <outlet property="profileStatusLabel" destination="uKV-CD-LHQ" id="RuG-Ca-iHh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qa4-4e-vnX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
