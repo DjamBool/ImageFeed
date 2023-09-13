@@ -246,16 +246,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SeW-u7-7nh"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="ocW-Ey-uYh" firstAttribute="top" secondItem="SeW-u7-7nh" secondAttribute="top" id="BLX-ZI-t5b"/>
-                            <constraint firstItem="SeW-u7-7nh" firstAttribute="trailing" secondItem="ocW-Ey-uYh" secondAttribute="trailing" id="C4J-fX-RlG"/>
-                            <constraint firstItem="ocW-Ey-uYh" firstAttribute="leading" secondItem="SeW-u7-7nh" secondAttribute="leading" id="cpw-Ok-95T"/>
-                            <constraint firstItem="SeW-u7-7nh" firstAttribute="bottom" secondItem="ocW-Ey-uYh" secondAttribute="bottom" id="hKz-PV-aXs"/>
+                            <constraint firstItem="ocW-Ey-uYh" firstAttribute="top" secondItem="hrn-Oc-kgu" secondAttribute="top" id="BLX-ZI-t5b"/>
+                            <constraint firstAttribute="trailing" secondItem="ocW-Ey-uYh" secondAttribute="trailing" id="C4J-fX-RlG"/>
+                            <constraint firstItem="ocW-Ey-uYh" firstAttribute="leading" secondItem="hrn-Oc-kgu" secondAttribute="leading" id="cpw-Ok-95T"/>
+                            <constraint firstAttribute="bottom" secondItem="ocW-Ey-uYh" secondAttribute="bottom" id="hKz-PV-aXs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jXP-Sx-5fp"/>
