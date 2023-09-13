@@ -245,9 +245,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-Ae-74P">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="414" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ocW-Ey-uYh" secondAttribute="bottom" id="CSa-Od-Fgh"/>
+                                    <constraint firstItem="ocW-Ey-uYh" firstAttribute="leading" secondItem="BnD-Ae-74P" secondAttribute="leading" id="PKH-tf-I6j"/>
+                                    <constraint firstAttribute="trailing" secondItem="ocW-Ey-uYh" secondAttribute="trailing" id="Xo4-Gd-lz0"/>
+                                    <constraint firstItem="ocW-Ey-uYh" firstAttribute="top" secondItem="BnD-Ae-74P" secondAttribute="top" id="z5O-qI-s5r"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="XZl-qa-olA"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="vJ2-7W-mdQ"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kOl-iU-qKg" id="0uH-4d-MSr"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GC-kM-pym">
                                 <rect key="frame" x="8" y="52" width="48" height="48"/>
                                 <constraints>
@@ -264,17 +280,18 @@
                         <viewLayoutGuide key="safeArea" id="SeW-u7-7nh"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="ocW-Ey-uYh" firstAttribute="top" secondItem="hrn-Oc-kgu" secondAttribute="top" id="BLX-ZI-t5b"/>
-                            <constraint firstAttribute="trailing" secondItem="ocW-Ey-uYh" secondAttribute="trailing" id="C4J-fX-RlG"/>
                             <constraint firstItem="9GC-kM-pym" firstAttribute="leading" secondItem="SeW-u7-7nh" secondAttribute="leading" constant="8" id="C6J-yj-j2o"/>
                             <constraint firstItem="9GC-kM-pym" firstAttribute="top" secondItem="SeW-u7-7nh" secondAttribute="top" constant="8" id="Dmw-eV-1og"/>
-                            <constraint firstItem="ocW-Ey-uYh" firstAttribute="leading" secondItem="hrn-Oc-kgu" secondAttribute="leading" id="cpw-Ok-95T"/>
-                            <constraint firstAttribute="bottom" secondItem="ocW-Ey-uYh" secondAttribute="bottom" id="hKz-PV-aXs"/>
+                            <constraint firstItem="BnD-Ae-74P" firstAttribute="leading" secondItem="hrn-Oc-kgu" secondAttribute="leading" id="Dsc-6y-sim"/>
+                            <constraint firstItem="BnD-Ae-74P" firstAttribute="top" secondItem="hrn-Oc-kgu" secondAttribute="top" id="OaH-KU-M86"/>
+                            <constraint firstAttribute="trailing" secondItem="BnD-Ae-74P" secondAttribute="trailing" id="e4h-Jf-ibf"/>
+                            <constraint firstAttribute="bottom" secondItem="BnD-Ae-74P" secondAttribute="bottom" id="x3h-aI-Q37"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jXP-Sx-5fp"/>
                     <connections>
                         <outlet property="imageView" destination="ocW-Ey-uYh" id="ni1-vJ-f7g"/>
+                        <outlet property="scrollView" destination="BnD-Ae-74P" id="fkG-ra-Zq7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5g-6H-9Bu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
