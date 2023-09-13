@@ -31,11 +31,11 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTo-dh-bD1">
-                                <rect key="frame" x="354" y="89" width="44" height="44"/>
+                                <rect key="frame" x="330" y="89" width="68" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Hg0-be-9FI"/>
-                                    <constraint firstAttribute="width" constant="44" id="bK5-GC-ewe"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="bK5-GC-ewe"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="Exit" title=""/>
@@ -59,7 +59,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kS-sv-ec4">
                                         <rect key="frame" x="0.0" y="31" width="99" height="18"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="99" id="b2X-Co-rJ0"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="99" id="b2X-Co-rJ0"/>
                                             <constraint firstAttribute="height" constant="18" id="x9Y-59-cOZ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
@@ -70,7 +70,7 @@
                                         <rect key="frame" x="0.0" y="57" width="77" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="2tt-yP-fBl"/>
-                                            <constraint firstAttribute="width" constant="77" id="UJa-eF-dJQ"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="77" id="UJa-eF-dJQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                         <color key="textColor" name="YP White"/>
@@ -166,7 +166,7 @@
                                                             <rect key="frame" x="16" y="8" width="152" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="8ls-xu-yQP"/>
-                                                                <constraint firstAttribute="width" constant="152" id="JxV-ws-KTY"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="152" id="JxV-ws-KTY"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" name="YP White"/>
@@ -248,7 +248,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-Ae-74P">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="414" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="414" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                     </imageView>
                                 </subviews>
@@ -264,6 +264,18 @@
                                     <outlet property="delegate" destination="kOl-iU-qKg" id="0uH-4d-MSr"/>
                                 </connections>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-GS-CZT">
+                                <rect key="frame" x="182" y="776" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Z7L-Ec-fav"/>
+                                    <constraint firstAttribute="width" constant="50" id="hWc-U1-vfg"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="share_button"/>
+                                <connections>
+                                    <action selector="didTapShareButton" destination="kOl-iU-qKg" eventType="touchUpInside" id="NJL-9T-JvQ"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GC-kM-pym">
                                 <rect key="frame" x="8" y="52" width="48" height="48"/>
                                 <constraints>
@@ -284,6 +296,8 @@
                             <constraint firstItem="9GC-kM-pym" firstAttribute="top" secondItem="SeW-u7-7nh" secondAttribute="top" constant="8" id="Dmw-eV-1og"/>
                             <constraint firstItem="BnD-Ae-74P" firstAttribute="leading" secondItem="hrn-Oc-kgu" secondAttribute="leading" id="Dsc-6y-sim"/>
                             <constraint firstItem="BnD-Ae-74P" firstAttribute="top" secondItem="hrn-Oc-kgu" secondAttribute="top" id="OaH-KU-M86"/>
+                            <constraint firstItem="gcR-GS-CZT" firstAttribute="centerX" secondItem="hrn-Oc-kgu" secondAttribute="centerX" id="Pff-Ay-cwz"/>
+                            <constraint firstItem="SeW-u7-7nh" firstAttribute="bottom" secondItem="gcR-GS-CZT" secondAttribute="bottom" constant="36" id="b7u-0z-hLm"/>
                             <constraint firstAttribute="trailing" secondItem="BnD-Ae-74P" secondAttribute="trailing" id="e4h-Jf-ibf"/>
                             <constraint firstAttribute="bottom" secondItem="BnD-Ae-74P" secondAttribute="bottom" id="x3h-aI-Q37"/>
                         </constraints>
@@ -305,6 +319,7 @@
         <image name="Userpick" width="70" height="70"/>
         <image name="chevron.backward" width="9" height="16"/>
         <image name="like_button_on" width="42" height="42"/>
+        <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
         <namedColor name="YP Black">
