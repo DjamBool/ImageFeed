@@ -248,12 +248,26 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GC-kM-pym">
+                                <rect key="frame" x="8" y="52" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="4YY-Wm-y6F"/>
+                                    <constraint firstAttribute="height" constant="48" id="I4j-fX-lTg"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="chevron.backward"/>
+                                <connections>
+                                    <action selector="didTapBackButton" destination="kOl-iU-qKg" eventType="touchUpInside" id="la8-Kl-JuU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SeW-u7-7nh"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="ocW-Ey-uYh" firstAttribute="top" secondItem="hrn-Oc-kgu" secondAttribute="top" id="BLX-ZI-t5b"/>
                             <constraint firstAttribute="trailing" secondItem="ocW-Ey-uYh" secondAttribute="trailing" id="C4J-fX-RlG"/>
+                            <constraint firstItem="9GC-kM-pym" firstAttribute="leading" secondItem="SeW-u7-7nh" secondAttribute="leading" constant="8" id="C6J-yj-j2o"/>
+                            <constraint firstItem="9GC-kM-pym" firstAttribute="top" secondItem="SeW-u7-7nh" secondAttribute="top" constant="8" id="Dmw-eV-1og"/>
                             <constraint firstItem="ocW-Ey-uYh" firstAttribute="leading" secondItem="hrn-Oc-kgu" secondAttribute="leading" id="cpw-Ok-95T"/>
                             <constraint firstAttribute="bottom" secondItem="ocW-Ey-uYh" secondAttribute="bottom" id="hKz-PV-aXs"/>
                         </constraints>
@@ -272,6 +286,7 @@
         <image name="0" width="200" height="132"/>
         <image name="Exit" width="44" height="44"/>
         <image name="Userpick" width="70" height="70"/>
+        <image name="chevron.backward" width="9" height="16"/>
         <image name="like_button_on" width="42" height="42"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
