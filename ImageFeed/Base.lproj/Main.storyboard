@@ -118,7 +118,7 @@
                         </tabBarAppearance>
                     </tabBar>
                     <connections>
-                        <segue destination="Loa-39-1Dz" kind="relationship" relationship="viewControllers" id="7Xt-aa-MMs"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="pgM-xf-fGe"/>
                         <segue destination="noZ-l2-zic" kind="relationship" relationship="viewControllers" id="B2o-yl-1IH"/>
                     </connections>
                 </tabBarController>
@@ -226,6 +226,7 @@
                             <constraint firstItem="tcx-HW-96N" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="wQv-20-vky"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="4wu-5W-4WH"/>
                     <navigationItem key="navigationItem" id="Gxg-PI-i0i"/>
                     <connections>
                         <outlet property="tableView" destination="tcx-HW-96N" id="bH6-Vj-YnX"/>
@@ -234,18 +235,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13" y="-496"/>
+            <point key="canvasLocation" x="-881" y="-496"/>
         </scene>
         <!--Single Image View Controller-->
         <scene sceneID="wK4-ei-3Fd">
             <objects>
-                <viewController id="kOl-iU-qKg" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="kOl-iU-qKg" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hrn-Oc-kgu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Ey-uYh">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SeW-u7-7nh"/>
@@ -264,31 +265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5g-6H-9Bu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1064" y="-496"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mep-iM-Bt9">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Loa-39-1Dz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="LaL-40-as8"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Msj-WP-xyq">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="YP White"/>
-                        <color key="barTintColor" name="YP White"/>
-                        <navigationBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" name="YP Black"/>
-                        </navigationBarAppearance>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="M2g-px-qeA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8TM-q2-i0o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-881.15942028985512" y="-496.20535714285711"/>
+            <point key="canvasLocation" x="290" y="-496"/>
         </scene>
     </scenes>
     <resources>
