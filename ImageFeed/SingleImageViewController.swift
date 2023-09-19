@@ -44,12 +44,15 @@ final class SingleImageViewController: UIViewController {
 
 }
 
+// MARK: - extension SingleImageViewController: UIScrollViewDelegate
+
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         imageView
     }
 }
 
+// MARK: - extension SingleImageViewController
 extension SingleImageViewController {
     private func rescaleAndCenterImageInScrollView (image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
@@ -75,6 +78,6 @@ extension SingleImageViewController {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+        
     }
-    
 }
