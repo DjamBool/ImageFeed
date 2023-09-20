@@ -30,7 +30,7 @@ final class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
     }
-        
+    
     @IBAction private func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
@@ -41,7 +41,7 @@ final class SingleImageViewController: UIViewController {
             applicationActivities: nil)
         present(share, animated: true, completion: nil)
     }
-
+    
 }
 
 // MARK: - extension SingleImageViewController: UIScrollViewDelegate
