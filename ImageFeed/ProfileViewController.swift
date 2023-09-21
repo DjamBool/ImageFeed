@@ -8,69 +8,66 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    private let profileImageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "Userpick")
+        return view
+    }()
     
-    let profileImage = UIImage(named: "Userpick")
-    let profileImageView = UIImageView()
-    var logoutButton = UIButton()
-    let nameLabel = UILabel()
-    let loginNameLabel = UILabel()
-    let descriptionLabel = UILabel()
+    private var logoutButton: UIButton = {
+        let button = UIButton.systemButton(
+            with: (UIImage(named: "Exit"))!,
+            target: self,
+            action: #selector(Self.didTapButton))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = UIColor(named: "YP Red")
+        return button
+    }()
+    
+    private let nameLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.text = "Екатерина Новикова"
+        nameLabel.textColor = UIColor(named: "YP White") ?? UIColor.white
+        nameLabel.font = UIFont(name: "HelveticaNeue-Bold" , size: 23)
+        return nameLabel
+    }()
+    
+    private let loginNameLabel: UILabel = {
+        let loginNameLabel = UILabel()
+        loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        loginNameLabel.text = "@ekaterina_nov"
+        loginNameLabel.textColor = UIColor(named: "YP Gray") ?? UIColor.systemGray4
+        loginNameLabel.font = UIFont(name: "SF Pro" , size: 13)
+        return loginNameLabel
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.text = "Hello, world!"
+        descriptionLabel.textColor = UIColor(named: "YP White") ?? UIColor.white
+        descriptionLabel.font = UIFont(name: "SF Pro" , size: 13)
+        return descriptionLabel
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeProfileImage()
-        makeExitButton()
-        makeNameLabel()
-        makeEMailLabel()
-        makeStatusLabel()
+        view.addSubview(profileImageView)
+        view.addSubview(logoutButton)
+        view.addSubview(nameLabel)
+        view.addSubview(loginNameLabel)
+        view.addSubview(descriptionLabel)
         layout()
     }
     
-    func makeProfileImage() {
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.image = profileImage
-        view.addSubview(profileImageView)
-    }
-    
-    func makeExitButton() {
-       logoutButton = UIButton.systemButton(
-        with: (UIImage(named: "Exit"))!,
-            target: self,
-            action: #selector(Self.didTapButton))
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        logoutButton.tintColor = UIColor(named: "YP Red")
-        view.addSubview(logoutButton)
-    }
-    
     @objc func didTapButton() {
-        print(#function)
         profileImageView.image = UIImage(systemName: "person.crop.circle.fill")
         profileImageView.tintColor = .gray
         nameLabel.text = ""
         descriptionLabel.text = ""
         loginNameLabel.text = ""
-    }
-    
-    func makeNameLabel() {
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "Екатерина Новикова"
-        nameLabel.textColor = UIColor(named: "YP White") ?? UIColor.white
-        nameLabel.font = UIFont(name: "HelveticaNeue-Bold" , size: 23)
-        view.addSubview(nameLabel)
-    }
-    func makeEMailLabel() {
-        loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        loginNameLabel.text = "@ekaterina_nov"
-        loginNameLabel.textColor = UIColor(named: "YP Gray") ?? UIColor.systemGray4
-        loginNameLabel.font = UIFont(name: "SF Pro" , size: 13)
-        view.addSubview(loginNameLabel)
-    }
-    func makeStatusLabel() {
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.text = "Hello, world!"
-        descriptionLabel.textColor = UIColor(named: "YP White") ?? UIColor.white
-        descriptionLabel.font = UIFont(name: "SF Pro" , size: 13)
-        view.addSubview(descriptionLabel)
     }
     
     func layout() {
@@ -81,7 +78,7 @@ class ProfileViewController: UIViewController {
             profileImageView.heightAnchor.constraint(equalToConstant: 70),
             profileImageView.widthAnchor.constraint(equalToConstant: 70),
             
-           // logoutButton
+            // logoutButton
             logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 76),
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             logoutButton.heightAnchor.constraint(equalToConstant: 44),
