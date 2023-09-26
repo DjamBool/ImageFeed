@@ -18,6 +18,7 @@
 		30D9B35D2A9CD59C0086FE71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D9B35B2A9CD59C0086FE71 /* Main.storyboard */; };
 		30D9B35F2A9CD59D0086FE71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D9B35E2A9CD59D0086FE71 /* Assets.xcassets */; };
 		30D9B3622A9CD59D0086FE71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D9B3602A9CD59D0086FE71 /* LaunchScreen.storyboard */; };
+		30F380882AC2BF6C00436B6D /* WebViewViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F380872AC2BF6C00436B6D /* WebViewViewControllerDelegate.swift */; };
 		30FFA35A2ABDCD2A00A00E1F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFA3592ABDCD2A00A00E1F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		30D9B35E2A9CD59D0086FE71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30D9B3612A9CD59D0086FE71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30D9B3632A9CD59D0086FE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30F380872AC2BF6C00436B6D /* WebViewViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerDelegate.swift; sourceTree = "<group>"; };
 		30FFA3592ABDCD2A00A00E1F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,6 +56,7 @@
 			children = (
 				3075BE672AC1974500E599E7 /* WebViewViewController.swift */,
 				3075BE622AC17B4200E599E7 /* AuthViewController.swift */,
+				30F380872AC2BF6C00436B6D /* WebViewViewControllerDelegate.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D9B35A2A9CD59C0086FE71 /* ImagesListViewController.swift in Sources */,
+				30F380882AC2BF6C00436B6D /* WebViewViewControllerDelegate.swift in Sources */,
 				30794ECB2AA5F06A0007C1CE /* ImagesListCell.swift in Sources */,
 				30868C5F2AAAF17200E062C3 /* ProfileViewController.swift in Sources */,
 				30D9B3562A9CD59C0086FE71 /* AppDelegate.swift in Sources */,
