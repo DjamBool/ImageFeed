@@ -7,6 +7,6 @@
 
 import UIKit
 
-class AuthViewController: UIViewController {
-    private let idForSegueToWebViewViewController = "ShowWebView"
+final class AuthViewController: UIViewController {
+    private let showWebViewSegueIdentifier = "ShowWebView"
 }

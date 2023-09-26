@@ -52,8 +52,8 @@
 		3075BE642AC195DE00E599E7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				3075BE622AC17B4200E599E7 /* AuthViewController.swift */,
 				3075BE672AC1974500E599E7 /* WebViewViewController.swift */,
+				3075BE622AC17B4200E599E7 /* AuthViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -81,10 +81,10 @@
 				30D9B3572A9CD59C0086FE71 /* SceneDelegate.swift */,
 				30868C5E2AAAF17200E062C3 /* ProfileViewController.swift */,
 				30FFA3592ABDCD2A00A00E1F /* Constants.swift */,
-				30868C602AAB398D00E062C3 /* SingleImageViewController.swift */,
+				30F380842AC1C1D400436B6D /* SingleImageViewController */,
 				3075BE642AC195DE00E599E7 /* Auth */,
-				30D9B35B2A9CD59C0086FE71 /* Main.storyboard */,
 				30D9B38D2A9E2ABF0086FE71 /* ImageList */,
+				30D9B35B2A9CD59C0086FE71 /* Main.storyboard */,
 				30D9B35E2A9CD59D0086FE71 /* Assets.xcassets */,
 				30D9B3602A9CD59D0086FE71 /* LaunchScreen.storyboard */,
 				30D9B3632A9CD59D0086FE71 /* Info.plist */,
@@ -99,6 +99,14 @@
 				30794ECA2AA5F06A0007C1CE /* ImagesListCell.swift */,
 			);
 			path = ImageList;
+			sourceTree = "<group>";
+		};
+		30F380842AC1C1D400436B6D /* SingleImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				30868C602AAB398D00E062C3 /* SingleImageViewController.swift */,
+			);
+			path = SingleImageViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
