@@ -38,19 +38,27 @@
                                     <action selector="didTapBackButton:" destination="OnN-bZ-QnW" eventType="touchUpInside" id="VkF-R3-6IX"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IAz-2a-Dxi">
+                                <rect key="frame" x="0.0" y="44" width="414" height="4"/>
+                                <color key="progressTintColor" name="YP Black"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="st4-jj-bae"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="IAz-2a-Dxi" firstAttribute="leading" secondItem="st4-jj-bae" secondAttribute="leading" id="8bp-yf-fhr"/>
                             <constraint firstItem="fiQ-Fc-7br" firstAttribute="leading" secondItem="st4-jj-bae" secondAttribute="leading" id="AbQ-c6-5Ck"/>
                             <constraint firstItem="z7R-tk-UxC" firstAttribute="leading" secondItem="st4-jj-bae" secondAttribute="leading" id="DGC-eT-BVk"/>
                             <constraint firstItem="z7R-tk-UxC" firstAttribute="bottom" secondItem="st4-jj-bae" secondAttribute="bottom" id="Fa2-bX-M7g"/>
                             <constraint firstItem="z7R-tk-UxC" firstAttribute="top" secondItem="st4-jj-bae" secondAttribute="top" id="ZQL-ue-k9v"/>
                             <constraint firstItem="z7R-tk-UxC" firstAttribute="trailing" secondItem="st4-jj-bae" secondAttribute="trailing" id="bdr-4H-r3p"/>
+                            <constraint firstItem="st4-jj-bae" firstAttribute="trailing" secondItem="IAz-2a-Dxi" secondAttribute="trailing" id="j4f-jp-5Xt"/>
+                            <constraint firstItem="IAz-2a-Dxi" firstAttribute="top" secondItem="fiQ-Fc-7br" secondAttribute="bottom" id="xUJ-GJ-bF4"/>
                             <constraint firstItem="fiQ-Fc-7br" firstAttribute="top" secondItem="st4-jj-bae" secondAttribute="top" id="xs1-sS-GhS"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="IAz-2a-Dxi" id="Nq0-gB-msY"/>
                         <outlet property="webView" destination="z7R-tk-UxC" id="fkg-bd-gLu"/>
                     </connections>
                 </viewController>
