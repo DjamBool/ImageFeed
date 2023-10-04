@@ -14,6 +14,7 @@
 		30868C612AAB398D00E062C3 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30868C602AAB398D00E062C3 /* SingleImageViewController.swift */; };
 		30BAAC992ACD72900019B3F1 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BAAC982ACD72900019B3F1 /* OAuthTokenResponseBody.swift */; };
 		30BAAC9B2ACD747C0019B3F1 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BAAC9A2ACD747C0019B3F1 /* OAuth2Service.swift */; };
+		30BAACA02ACD79230019B3F1 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BAAC9F2ACD79230019B3F1 /* OAuth2TokenStorage.swift */; };
 		30D9B3562A9CD59C0086FE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D9B3552A9CD59C0086FE71 /* AppDelegate.swift */; };
 		30D9B3582A9CD59C0086FE71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D9B3572A9CD59C0086FE71 /* SceneDelegate.swift */; };
 		30D9B35A2A9CD59C0086FE71 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D9B3592A9CD59C0086FE71 /* ImagesListViewController.swift */; };
@@ -32,6 +33,7 @@
 		30868C602AAB398D00E062C3 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		30BAAC982ACD72900019B3F1 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
 		30BAAC9A2ACD747C0019B3F1 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
+		30BAAC9F2ACD79230019B3F1 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
 		30D9B3522A9CD59C0086FE71 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D9B3552A9CD59C0086FE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D9B3572A9CD59C0086FE71 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			children = (
 				30BAAC982ACD72900019B3F1 /* OAuthTokenResponseBody.swift */,
 				30BAAC9A2ACD747C0019B3F1 /* OAuth2Service.swift */,
+				30BAAC9F2ACD79230019B3F1 /* OAuth2TokenStorage.swift */,
 			);
 			path = OAuth;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				30FFA35A2ABDCD2A00A00E1F /* Constants.swift in Sources */,
 				30868C612AAB398D00E062C3 /* SingleImageViewController.swift in Sources */,
 				3075BE682AC1974500E599E7 /* WebViewViewController.swift in Sources */,
+				30BAACA02ACD79230019B3F1 /* OAuth2TokenStorage.swift in Sources */,
 				30D9B3582A9CD59C0086FE71 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
