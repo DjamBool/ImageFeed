@@ -4,6 +4,7 @@ import Foundation
 class OAuth2Service {
     
     static let shared = OAuth2Service()
+    
     private let urlSession = URLSession.shared
     private (set) var authToken: String? {
         get {
@@ -14,7 +15,11 @@ class OAuth2Service {
         }
     }
     
-     func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
+    private init() {
+    }
+    
+     func fetchAuthToken(_ code: String,
+                         completion: @escaping (Result<String, Error>) -> Void) {
         let request = authTokenRequest(code: code)
         let task = object(for: request) { [weak self] result in
             guard let self = self else { return }

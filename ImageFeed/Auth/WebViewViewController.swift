@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-private let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+//private let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
 
 final class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
@@ -21,9 +21,7 @@ final class WebViewViewController: UIViewController {
 
         webView.navigationDelegate = self
         progressView.progressViewStyle = .bar
-        
         loadWebView()
-        
     }
 // изменено с viewWillAppear на viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
@@ -44,11 +42,18 @@ final class WebViewViewController: UIViewController {
             context: nil)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?, change: [NSKeyValueChangeKey : Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
         if keyPath == #keyPath(WKWebView.estimatedProgress) {
             updateProgress()
         } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            super.observeValue(
+                forKeyPath: keyPath,
+                of: object, change: change,
+                context: context)
         }
     }
 
@@ -69,8 +74,7 @@ extension WebViewViewController: WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let code = fetchCode(url: navigationAction.request.url) {
-            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
-            print("the function", #function, "worked")
+           delegate?.webViewViewController(self, didAuthenticateWithCode: code)
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)
@@ -83,7 +87,6 @@ extension WebViewViewController: WKNavigationDelegate {
           components.path == "/oauth/authorize/native",
           let codeItem = components.queryItems?.first(where: { $0.name == "code" })
         else { return nil }
-        
         return codeItem.value
     }
 }

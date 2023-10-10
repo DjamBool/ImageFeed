@@ -69,7 +69,6 @@ extension SingleImageViewController {
         let scale = min(maxZoomScale, max(minZoomScale, max(hScale, vScale)))
         
         scrollView.setZoomScale(scale, animated: false)
-        
         scrollView.layoutIfNeeded()
         
         let newContentSize = scrollView.contentSize
