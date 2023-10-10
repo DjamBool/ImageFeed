@@ -8,22 +8,20 @@
 import UIKit
 import WebKit
 
-//private let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-
 final class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
     @IBOutlet weak var progressView: UIProgressView!
-
+    
     weak var delegate: WebViewViewControllerDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         webView.navigationDelegate = self
         progressView.progressViewStyle = .bar
         loadWebView()
     }
-// изменено с viewWillAppear на viewDidAppear
+    // изменено с viewWillAppear на viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         webView.addObserver(
@@ -33,7 +31,7 @@ final class WebViewViewController: UIViewController {
             context: nil)
         updateProgress()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         webView.removeObserver(
@@ -56,12 +54,12 @@ final class WebViewViewController: UIViewController {
                 context: context)
         }
     }
-
+    
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
-
+    
     @IBAction func didTapBackButton(_ sender: Any) {
         delegate?.webViewViewControllerDidCancel(self)
     }
@@ -74,7 +72,7 @@ extension WebViewViewController: WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let code = fetchCode(url: navigationAction.request.url) {
-           delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)
@@ -82,10 +80,10 @@ extension WebViewViewController: WKNavigationDelegate {
     }
     
     func fetchCode(url: URL?) -> String? {
-    guard let url = url,
-          let components = URLComponents(string: url.absoluteString),
-          components.path == "/oauth/authorize/native",
-          let codeItem = components.queryItems?.first(where: { $0.name == "code" })
+        guard let url = url,
+              let components = URLComponents(string: url.absoluteString),
+              components.path == "/oauth/authorize/native",
+              let codeItem = components.queryItems?.first(where: { $0.name == "code" })
         else { return nil }
         return codeItem.value
     }

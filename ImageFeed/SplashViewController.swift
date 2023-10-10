@@ -9,7 +9,7 @@ import UIKit
 
 class SplashViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-
+    
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     
@@ -18,7 +18,6 @@ class SplashViewController: UIViewController {
         
         if let token = OAuth2TokenStorage().token {
             switchToTabBarController()
-            print("www")
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -29,16 +28,11 @@ class SplashViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        .lightContent
-//    }
-    
     func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
-        print("Qwerty")
     }
 }
 
@@ -74,7 +68,6 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success:
                 self.switchToTabBarController()
             case .failure:
-                print("failure")
                 // TODO [Sprint 11]
                 break
             }

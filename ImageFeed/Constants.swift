@@ -1,9 +1,3 @@
-//
-//  Constants.swift
-//  ImageFeed
-//
-//  Created by Игорь Мунгалов on 22.09.2023.
-//
 
 import Foundation
 
