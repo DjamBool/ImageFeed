@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30431E712AD53C26007BF101 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30431E702AD53C26007BF101 /* SplashViewController.swift */; };
 		30691EF32AD69B17000156B5 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 30691EF22AD69B17000156B5 /* ProgressHUD */; };
+		30691EF52ADD3220000156B5 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30691EF42ADD3220000156B5 /* UIBlockingProgressHUD.swift */; };
 		3075BE632AC17B4200E599E7 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075BE622AC17B4200E599E7 /* AuthViewController.swift */; };
 		3075BE682AC1974500E599E7 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075BE672AC1974500E599E7 /* WebViewViewController.swift */; };
 		30794ECB2AA5F06A0007C1CE /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30794ECA2AA5F06A0007C1CE /* ImagesListCell.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		30431E702AD53C26007BF101 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		30691EF42ADD3220000156B5 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		3075BE622AC17B4200E599E7 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		3075BE672AC1974500E599E7 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		30794ECA2AA5F06A0007C1CE /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				30D9B3572A9CD59C0086FE71 /* SceneDelegate.swift */,
 				30FFA3592ABDCD2A00A00E1F /* Constants.swift */,
 				30431E702AD53C26007BF101 /* SplashViewController.swift */,
+				30691EF42ADD3220000156B5 /* UIBlockingProgressHUD.swift */,
 				3075BE642AC195DE00E599E7 /* Auth */,
 				30BAAC972ACD71A60019B3F1 /* OAuth */,
 				30431E6F2AD53883007BF101 /* Profile */,
@@ -249,6 +252,7 @@
 				3075BE682AC1974500E599E7 /* WebViewViewController.swift in Sources */,
 				30BAACA02ACD79230019B3F1 /* OAuth2TokenStorage.swift in Sources */,
 				30D9B3582A9CD59C0086FE71 /* SceneDelegate.swift in Sources */,
+				30691EF52ADD3220000156B5 /* UIBlockingProgressHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
