@@ -8,6 +8,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    private let profileService = ProfileService.shared
+    
     private let profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
