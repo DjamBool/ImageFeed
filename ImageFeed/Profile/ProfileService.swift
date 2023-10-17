@@ -42,26 +42,6 @@ final class ProfileService {
         }
     }
     
-    
-    //    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
-    //        assert(Thread.isMainThread)
-    //        print("MyProfile")
-    //
-    //        guard let url = URL(string: "https://api.unsplash.com/me") else { return }
-    //        var request = URLRequest(url: url)
-    //        request.httpMethod = "GET"
-    //        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-    //
-    //        task = URLSession.shared.dataTask(with: request){ data, response, error in
-    //            if let error = error {
-    //                completion(Result.failure(error))
-    //                print("Error fetchProfile()")
-    //                return
-    //            }
-    //        }
-    //        task?.resume()
-    //    }
-    
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         
