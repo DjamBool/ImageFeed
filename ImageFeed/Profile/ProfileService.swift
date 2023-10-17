@@ -11,17 +11,20 @@ final class ProfileService {
     static let shared = ProfileService()
     private (set) var profile: Profile?
     
+    private var task: URLSessionTask?
+    private var urlSession = URLSession.shared
+    
     private enum NetworkError: Error {
         case codeError
     }
     
-    private var task: URLSessionTask?
+    
     
     struct ProfileResult: Codable {
         let username: String
         let firstName: String
         let lastName: String
-        let bio: String
+        let bio: String?
         
         enum CodingKeys: String, CodingKey {
             case username
@@ -31,16 +34,25 @@ final class ProfileService {
         }
     }
     
-    struct Profile {
+    struct Profile: Codable {
         let username: String
         let name: String
         let loginName: String
-        let bio: String
+        let bio: String?
+        
+        init(profileResult: ProfileResult) {
+            self.username = profileResult.username
+            self.name = profileResult.firstName + " " + profileResult.lastName
+            self.loginName = "@" + profileResult.username
+            self.bio = profileResult.bio
+        }
     }
+
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
-        task?.cancel()
+        assert(Thread.isMainThread)
         print("MyProfile")
+        
         guard let url = URL(string: "https://api.unsplash.com/me") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -56,3 +68,4 @@ final class ProfileService {
         task?.resume()
     }
 }
+

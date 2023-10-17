@@ -60,9 +60,15 @@ class ProfileViewController: UIViewController {
         view.addSubview(profileImageView)
         view.addSubview(logoutButton)
         view.addSubview(nameLabel)
+        nameLabel.text = profileService.profile?.name
         view.addSubview(loginNameLabel)
+        loginNameLabel.text = profileService.profile?.loginName
         view.addSubview(descriptionLabel)
+        descriptionLabel.text = profileService.profile?.bio
         layout()
+        profileService.fetchProfile(OAuth2TokenStorage().token!) { _ in
+            print("Van'ka-Van'ka")
+        }
     }
     
     @objc func didTapButton() {
