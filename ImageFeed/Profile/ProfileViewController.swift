@@ -65,14 +65,22 @@ class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         
         layout()
-        makeLabelTexts()
+        //makeLabelTexts()
+        updateProfileDetails(profile: profileService.profile)
     }
     
-    private func makeLabelTexts() {
-        nameLabel.text = profileService.profile?.name
-        loginNameLabel.text = profileService.profile?.loginName
-        descriptionLabel.text = profileService.profile?.bio
+    private func updateProfileDetails(profile: ProfileService.Profile?) {
+        guard let profile = profile else { return }
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
     }
+    
+//    private func makeLabelTexts() {
+//        nameLabel.text = profileService.profile?.name
+//        loginNameLabel.text = profileService.profile?.loginName
+//        descriptionLabel.text = profileService.profile?.bio
+//    }
     
     @objc func didTapButton() {
         profileImageView.image = UIImage(systemName: "person.crop.circle.fill")
