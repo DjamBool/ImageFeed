@@ -14,12 +14,6 @@ final class ProfileService {
     private var task: URLSessionTask?
     private var urlSession = URLSession.shared
     
-    private enum NetworkError: Error {
-        case codeError
-    }
-    
-    
-    
     struct ProfileResult: Codable {
         let username: String
         let firstName: String
@@ -47,25 +41,69 @@ final class ProfileService {
             self.bio = profileResult.bio
         }
     }
-
+    
+    
+    //    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
+    //        assert(Thread.isMainThread)
+    //        print("MyProfile")
+    //
+    //        guard let url = URL(string: "https://api.unsplash.com/me") else { return }
+    //        var request = URLRequest(url: url)
+    //        request.httpMethod = "GET"
+    //        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    //
+    //        task = URLSession.shared.dataTask(with: request){ data, response, error in
+    //            if let error = error {
+    //                completion(Result.failure(error))
+    //                print("Error fetchProfile()")
+    //                return
+    //            }
+    //        }
+    //        task?.resume()
+    //    }
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
-        print("MyProfile")
         
-        guard let url = URL(string: "https://api.unsplash.com/me") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        task = URLSession.shared.dataTask(with: request){ data, response, error in
-            if let error = error {
-                completion(Result.failure(error))
-                print("Error fetchProfile()")
-                return
+        let request = makeProfileRequest(token: token)
+        let task = object(for: request) { (result: Result<ProfileResult, Error>) in
+            switch result {
+            case .success(let body):
+                let profile = Profile(profileResult: body)
+                self.profile = profile
+                completion(.success(profile))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
-        task?.resume()
+        self.task = task
+        task.resume()
     }
 }
 
+extension ProfileService {
+    
+    private enum NetworkError: Error {
+        case codeError
+    }
+    
+    private func makeProfileRequest(token: String) -> URLRequest {
+        guard let url = URL(string: "https://api.unsplash.com/me") else { fatalError("Failed URL")}
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    private func object(
+        for request: URLRequest,
+        completion: @escaping (Result<ProfileResult, Error>) -> Void) -> URLSessionTask {
+            let decoder = JSONDecoder()
+            return urlSession.data(for: request) { (result: Result<Data, Error>) in
+                let response = result.flatMap { data -> Result<ProfileResult, Error> in
+                    Result { try decoder.decode(ProfileResult.self, from: data) }
+                }
+                completion(response)
+            }
+        }
+}
