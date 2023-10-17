@@ -65,11 +65,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         
         layout()
-        
-        guard let token = oAuth2TokenStorage.token else { return }
-        profileService.fetchProfile(token) { _ in
-            self.makeLabelTexts()
-        }
+        makeLabelTexts()
     }
     
     private func makeLabelTexts() {
