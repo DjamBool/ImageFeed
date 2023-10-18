@@ -6,8 +6,10 @@ class SplashViewController: UIViewController {
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     
     private let profileService = ProfileService.shared
+    private var profile = ProfileService.shared.profile
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage.shared
+    private let profileImageService = ProfileImageService.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -30,7 +32,11 @@ class SplashViewController: UIViewController {
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
+        
+        fetchProfileImageURL()
     }
+    
+    
 }
 
 // MARK: - Segue Preparation
@@ -78,14 +84,23 @@ extension SplashViewController: AuthViewControllerDelegate {
         profileService.fetchProfile(token) { [weak self] result  in 
             guard let self = self else { return }
             switch result {
-            case .success:
+            case .success(let profile):
                 UIBlockingProgressHUD.dismiss()
+                self.profile = profile
+                
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
                 // TODO [Sprint 11] Show Error
                 break
             }
+        }
+    }
+    
+    private func fetchProfileImageURL() {
+        guard let username = profile?.username else { return }
+        profileImageService.fetchProfileImageURL(username: username) { _ in
+            print(#function)
         }
     }
 }
