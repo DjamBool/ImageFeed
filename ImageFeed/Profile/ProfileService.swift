@@ -71,7 +71,10 @@ extension ProfileService {
         guard let url = URL(string: "https://api.unsplash.com/me") else { fatalError("Failed URL")}
         
         var request = URLRequest(url: url)
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        if let token = OAuth2TokenStorage.shared.token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         return request
     }
     
