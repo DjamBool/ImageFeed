@@ -14,6 +14,8 @@ final class ProfileImageService {
     private var task: URLSessionTask?
     private var lastUserName: String?
     
+    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    
     struct UserResult: Codable {
         let profileImage: SmallImageURL
         
@@ -39,11 +41,20 @@ final class ProfileImageService {
             case .success(let userResult):
                 if let avatarURL = self.avatarURL {
                     completion(.success(avatarURL))
+                    print("1avatarURL:", avatarURL)
                 return
                 }
                 self.avatarURL = userResult.profileImage.small
                 completion(.success(userResult.profileImage.small))
-                print("avatarURL: \(String(describing: self.avatarURL))")
+                let profileImageURL = ProfileImageService.shared.avatarURL
+                NotificationCenter.default
+                    .post(
+                        name: ProfileImageService.DidChangeNotification,
+                        object: self,
+                        userInfo: ["URL": profileImageURL!])
+                
+                print("2avatarURL: \(String(describing: self.avatarURL))")
+                print("profileImageURL = \(String(describing: profileImageURL))")
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -60,9 +71,6 @@ extension ProfileImageService {
     }
     
     private func makeRequest(username: String) -> URLRequest {
-//        guard let url = URL(string: "https://api.unsplash.com/users/:username") else {
-//            fatalError("Failed to create Avatar URL")
-//        }
         guard let url = URL(string: "https://api.unsplash.com/users/\(username)") else {
             fatalError("Failed to create Avatar URL")
         }

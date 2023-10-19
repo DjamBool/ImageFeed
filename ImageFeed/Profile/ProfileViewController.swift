@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     private let profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +69,17 @@ class ProfileViewController: UIViewController {
         layout()
         //makeLabelTexts()
         updateProfileDetails(profile: profileService.profile)
+        
+        profileImageServiceObserver = NotificationCenter.default
+                    .addObserver(
+                        forName: ProfileImageService.DidChangeNotification,
+                        object: nil,
+                        queue: .main
+                    ) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.updateAvatar()
+                    }
+                updateAvatar()
     }
     
     private func updateProfileDetails(profile: ProfileService.Profile?) {
@@ -123,4 +136,15 @@ class ProfileViewController: UIViewController {
             descriptionLabel.widthAnchor.constraint(equalToConstant: 241)
         ])
     }
+}
+
+extension ProfileViewController {
+    private func updateAvatar() {                                   // 8
+            guard
+                let profileImageURL = ProfileImageService.shared.avatarURL,
+                let url = URL(string: profileImageURL)
+            else { return }
+            // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+        print("ava")
+        }
 }
