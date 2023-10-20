@@ -39,11 +39,16 @@ final class ProfileService {
     
     static let shared = ProfileService()
     private (set) var profile: Profile?
+    private let requestBuilder: URLRequestBuilder
     
     private var task: URLSessionTask?
     private var urlSession = URLSession.shared
     private var currentTask: URLSessionTask?
     
+    
+    init(requestBuilder: URLRequestBuilder = .shared) {
+        self.requestBuilder = requestBuilder
+    }
 //    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
 //        assert(Thread.isMainThread)
 //
@@ -117,7 +122,7 @@ final class ProfileService {
     }
     
     private func fetchProfileRequest(token: String) -> URLRequest? {
-        URLRequest.makeHTTPRequest(path: "/me",
+        requestBuilder.makeHTTPRequest(path: "/me",
                                    httpMethod: "GET",
                                    baseURL: defaultBaseURL)
     }
@@ -144,7 +149,7 @@ completion: @escaping (Result<ProfileResult, Error>) -> Void) -> URLSessionTask 
                     fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
                 }
             } else if let error = error {
-                fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError ))
+                fulfillCompletionOnMainThread(.failure(error))
             } else {
                 fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
             }
