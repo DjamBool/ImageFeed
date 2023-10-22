@@ -108,7 +108,7 @@ final class ProfileService {
             completion(.failure(NetworkError.invalidRequest))
             return
         }
-        currentTask = fetch(request: request, completion: { [weak self] response in
+        currentTask = urlSession.objectTask(for: request) { [weak self] (response: Result<ProfileResult, Error>) in
             self?.currentTask = nil
             switch response {
             case .success(let body):
@@ -118,7 +118,7 @@ final class ProfileService {
             case .failure(let error):
                 completion(.failure(error))
             }
-        })
+        }
     }
     
     private func fetchProfileRequest(token: String) -> URLRequest? {
@@ -127,34 +127,34 @@ final class ProfileService {
                                    baseURL: defaultBaseURL)
     }
     
-    func fetch(request: URLRequest,
-completion: @escaping (Result<ProfileResult, Error>) -> Void) -> URLSessionTask {
-        let fulfillCompletionOnMainThread: (Result<ProfileResult, Error>) -> Void = { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-            if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                if 200 ..< 300 ~= statusCode {
-                    do {
-                        let decoder = JSONDecoder()
-                        let result = try decoder.decode(ProfileResult.self, from: data)
-                        fulfillCompletionOnMainThread(.success(result))
-                    } catch {
-                        fulfillCompletionOnMainThread(.failure(error))
-                    }
-                } else {
-                    fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
-                }
-            } else if let error = error {
-                fulfillCompletionOnMainThread(.failure(error))
-            } else {
-                fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
-            }
-        })
-        task.resume()
-        return task
-}
+//    func fetch(request: URLRequest,
+//completion: @escaping (Result<ProfileResult, Error>) -> Void) -> URLSessionTask {
+//        let fulfillCompletionOnMainThread: (Result<ProfileResult, Error>) -> Void = { result in
+//            DispatchQueue.main.async {
+//                completion(result)
+//            }
+//        }
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request, completionHandler: { data, response, error in
+//            if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
+//                if 200 ..< 300 ~= statusCode {
+//                    do {
+//                        let decoder = JSONDecoder()
+//                        let result = try decoder.decode(ProfileResult.self, from: data)
+//                        fulfillCompletionOnMainThread(.success(result))
+//                    } catch {
+//                        fulfillCompletionOnMainThread(.failure(error))
+//                    }
+//                } else {
+//                    fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
+//                }
+//            } else if let error = error {
+//                fulfillCompletionOnMainThread(.failure(error))
+//            } else {
+//                fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
+//            }
+//        })
+//        task.resume()
+//        return task
+//}
 }
