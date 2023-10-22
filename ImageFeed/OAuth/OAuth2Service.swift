@@ -35,10 +35,11 @@ class OAuth2Service {
 //        currentTask?.cancel()
         lastCode = code
         
+        
         let request = authTokenRequest(code: code)
-       currentTask = fetchOAuthBody(for: request) { [weak self] result in
+        currentTask = urlSession.objectTask(for: request) { [weak self] (response: Result<OAuthTokenResponseBody, Error>) in
            self?.currentTask = nil
-            switch result {
+            switch response {
             case .success(let body):
                             let authToken = body.accessToken
                             self?.authToken = authToken
@@ -73,49 +74,49 @@ class OAuth2Service {
             baseURL: URL(string: "https://unsplash.com")!)
     }
     
-    private func object(
-        for request: URLRequest,
-        completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void) -> URLSessionTask {
-            let decoder = JSONDecoder()
-            return urlSession.objectTask(for: request) { (result: Result<Data, Error>) in
-                let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
-                    Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
-                }
-                completion(response)
-            }
-        }
+//    private func object(
+//        for request: URLRequest,
+//        completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void) -> URLSessionTask {
+//            let decoder = JSONDecoder()
+//            return urlSession.objectTask(for: request) { (result: Result<Data, Error>) in
+//                let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
+//                    Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
+//                }
+//                completion(response)
+//            }
+//        }
     
-    func fetchOAuthBody(for request: URLRequest, completion: @escaping
-                        (Result<OAuthTokenResponseBody, Error>) -> Void) -> URLSessionTask {
-        let fulfillCompletionOnMainThread: (Result<OAuthTokenResponseBody, Error>) -> Void =
-        { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-            if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                if 200 ..< 300 ~= statusCode {
-                    do {
-                        let decoder = JSONDecoder()
-                        let result = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                        fulfillCompletionOnMainThread(.success(result))
-                    } catch {
-                        fulfillCompletionOnMainThread(.failure(error))
-                    }
-                } else {
-                    fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
-                }
-            } else if let error = error {
-                fulfillCompletionOnMainThread(.failure(error))
-            } else {
-                fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
-            }
-        })
-        task.resume()
-        return task
-    }
+//    func fetchOAuthBody(for request: URLRequest, completion: @escaping
+//                        (Result<OAuthTokenResponseBody, Error>) -> Void) -> URLSessionTask {
+//        let fulfillCompletionOnMainThread: (Result<OAuthTokenResponseBody, Error>) -> Void =
+//        { result in
+//            DispatchQueue.main.async {
+//                completion(result)
+//            }
+//        }
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request, completionHandler: { data, response, error in
+//            if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
+//                if 200 ..< 300 ~= statusCode {
+//                    do {
+//                        let decoder = JSONDecoder()
+//                        let result = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+//                        fulfillCompletionOnMainThread(.success(result))
+//                    } catch {
+//                        fulfillCompletionOnMainThread(.failure(error))
+//                    }
+//                } else {
+//                    fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
+//                }
+//            } else if let error = error {
+//                fulfillCompletionOnMainThread(.failure(error))
+//            } else {
+//                fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
+//            }
+//        })
+//        task.resume()
+//        return task
+//    }
 }
 
 
