@@ -32,6 +32,7 @@
 		30FA66A52AFA710400087308 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 30FA66A42AFA710400087308 /* Kingfisher */; };
 		30FA66A72AFA721800087308 /* ProfileStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA66A62AFA721800087308 /* ProfileStructs.swift */; };
 		30FA66AA2AFA75C300087308 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 30FA66A92AFA75C300087308 /* SwiftKeychainWrapper */; };
+		30FA66AC2AFAB78500087308 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA66AB2AFAB78500087308 /* TabBarController.swift */; };
 		30FFA35A2ABDCD2A00A00E1F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFA3592ABDCD2A00A00E1F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		30D9B3632A9CD59D0086FE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30F380872AC2BF6C00436B6D /* WebViewViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerDelegate.swift; sourceTree = "<group>"; };
 		30FA66A62AFA721800087308 /* ProfileStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStructs.swift; sourceTree = "<group>"; };
+		30FA66AB2AFAB78500087308 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		30FFA3592ABDCD2A00A00E1F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 				30FFA3592ABDCD2A00A00E1F /* Constants.swift */,
 				30431E702AD53C26007BF101 /* SplashViewController.swift */,
 				30691EF42ADD3220000156B5 /* UIBlockingProgressHUD.swift */,
+				30FA66AB2AFAB78500087308 /* TabBarController.swift */,
 				3075BE642AC195DE00E599E7 /* Auth */,
 				30BAAC972ACD71A60019B3F1 /* OAuth */,
 				30431E6F2AD53883007BF101 /* Profile */,
@@ -271,6 +274,7 @@
 				30868C612AAB398D00E062C3 /* SingleImageViewController.swift in Sources */,
 				3075BE682AC1974500E599E7 /* WebViewViewController.swift in Sources */,
 				30BAACA02ACD79230019B3F1 /* OAuth2TokenStorage.swift in Sources */,
+				30FA66AC2AFAB78500087308 /* TabBarController.swift in Sources */,
 				30D9B3582A9CD59C0086FE71 /* SceneDelegate.swift in Sources */,
 				30691EF52ADD3220000156B5 /* UIBlockingProgressHUD.swift in Sources */,
 			);
