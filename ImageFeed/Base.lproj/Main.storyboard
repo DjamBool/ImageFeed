@@ -66,22 +66,6 @@
             </objects>
             <point key="canvasLocation" x="-1086" y="-1144"/>
         </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="PyB-YN-oTe">
-            <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="noZ-l2-zic" customClass="ProfileViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hY2-3K-C4M">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="fFH-5R-aVP"/>
-                        <color key="backgroundColor" name="YP Black"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="abx-6o-LhV"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qa4-4e-vnX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2033" y="307"/>
-        </scene>
         <!--Auth View Controller-->
         <scene sceneID="OHs-h1-tyE">
             <objects>
@@ -169,7 +153,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="UQ3-6P-2Wr">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="DJR-a2-Al0" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="DJR-a2-Al0" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kjv-Xp-HvT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -399,7 +383,6 @@
         <image name="share_button" width="50" height="50"/>
         <image name="splash_screen_logo" width="73" height="75.5"/>
         <image name="tab_editorial_active" width="30" height="30"/>
-        <image name="tab_profile_active" width="30" height="30"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
