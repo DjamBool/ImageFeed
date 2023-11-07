@@ -3,11 +3,10 @@ import UIKit
 import ProgressHUD
 
 class SplashViewController: UIViewController {
-    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    
+    private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let profileService = ProfileService.shared
-    private var profile = ProfileService.shared.profile
     private let oauth2Service = OAuth2Service.shared
+    private var profile: Profile?
     private let oauth2TokenStorage = OAuth2TokenStorage.shared
     private let profileImageService = ProfileImageService.shared
     
@@ -16,9 +15,8 @@ class SplashViewController: UIViewController {
         
         if let token = oauth2TokenStorage.token {
             fetchProfile(token: token)
-            switchToTabBarController()
         } else {
-            performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
+            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
     }
     
@@ -32,21 +30,17 @@ class SplashViewController: UIViewController {
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
-        
-        fetchProfileImageURL()
     }
-    
-    
 }
 
 // MARK: - Segue Preparation
 extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showAuthenticationScreenSegueIdentifier {
+        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
             guard
                 let navigationController = segue.destination as? UINavigationController,
                 let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(showAuthenticationScreenSegueIdentifier)") }
+            else { fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
             viewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -58,49 +52,77 @@ extension SplashViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
+        
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            UIBlockingProgressHUD.show()
+            //UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
         }
     }
-    
     private func fetchOAuthToken(_ code: String) {
-        oauth2Service.fetchAuthToken(code) { [weak self] result in
+        UIBlockingProgressHUD.show()
+        oauth2Service.fetchAuthToken(code) { [weak self] authResult in
             guard let self = self else { return }
-            switch result {
+            switch authResult {
             case .success(let token):
                 self.fetchProfile(token: token)
-               // UIBlockingProgressHUD.dismiss()
-            case .failure:
+            case .failure(let error):
+                self.showAlert(error: error)
                 UIBlockingProgressHUD.dismiss()
-                // TODO [Sprint 11] Show Error
                 break
             }
         }
     }
     
     private func fetchProfile(token: String) {
-        profileService.fetchProfile(token) { [weak self] result  in 
+        profileService.fetchProfile(token) { [weak self] profileResult  in
             guard let self = self else { return }
-            switch result {
-            case .success(let profile):
+            switch profileResult {
+            case .success: //(let profile):
+                //UIBlockingProgressHUD.dismiss()
+                // self.profile = profile
+                //self.fetchProfileImageURL()
+                
+                //добавлено для аватар урл:
+                if let userName = self.profileService.profile?.username {
+                    fetchProfileImageURL(username: userName)
+                    //                    self.profileImageService.fetchProfileImageURL(username: userName) { result in
+                    //                        switch result {
+                    //                        case .success(let imageUrl):
+                    //                            print("Avatar URL: \(imageUrl)")
+                    //                        case .failure(let error):
+                    //                            print("error - \(error)")
+                    //                        }
+                    //                    }
+                    //конец
+                    self.switchToTabBarController()
+                    UIBlockingProgressHUD.dismiss()
+                }
+            case .failure(let error):
                 UIBlockingProgressHUD.dismiss()
-                self.profile = profile
-                self.fetchProfileImageURL()
-                self.switchToTabBarController()
-            case .failure:
-                UIBlockingProgressHUD.dismiss()
-                // TODO [Sprint 11] Show Error
+                self.showAlert(error: error)
                 break
             }
         }
     }
-    
-    private func fetchProfileImageURL() {
-        guard let username = profile?.username else { return }
-        profileImageService.fetchProfileImageURL(username: username) { _ in
-            print(#function)
+    private func fetchProfileImageURL(username: String) {
+        profileImageService.fetchProfileImageURL(username: username) { result in
+            switch result {
+            case .success(let imageUrl):
+                print("Avatar URL: \(imageUrl)")
+            case .failure(let error):
+                print("error - \(error)")
+                self.showAlert(error: error)
+            }
         }
+    }
+    
+    private func showAlert(error: Error) {
+        let alert = UIAlertController(title: "Что-то пошло не так(",
+                                      message: "Не удалось войти в систему",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
 }

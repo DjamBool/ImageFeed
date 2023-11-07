@@ -6,15 +6,17 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
+    private let storageToken = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
-    
+    private var profile : Profile? //ProfileService.shared.profile
+   
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(named: "Userpick")
@@ -24,7 +26,7 @@ class ProfileViewController: UIViewController {
     private var logoutButton: UIButton = {
         let button = UIButton.systemButton(
             with: (UIImage(named: "Exit"))!,
-            target: self,
+            target: ProfileViewController.self,
             action: #selector(Self.didTapButton))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = UIColor(named: "YP Red")
@@ -66,10 +68,8 @@ class ProfileViewController: UIViewController {
         view.addSubview(loginNameLabel)
         view.addSubview(descriptionLabel)
         
+        updateProfileDetails(profile: profile)
         layout()
-        //makeLabelTexts()
-        updateProfileDetails(profile: profileService.profile)
-        
         profileImageServiceObserver = NotificationCenter.default
                     .addObserver(
                         forName: ProfileImageService.DidChangeNotification,
@@ -82,19 +82,21 @@ class ProfileViewController: UIViewController {
                 updateAvatar()
     }
     
-    private func updateProfileDetails(profile: ProfileService.Profile?) {
-        guard let profile = profile else { return }
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
-    
-//    private func makeLabelTexts() {
-//        nameLabel.text = profileService.profile?.name
-//        loginNameLabel.text = profileService.profile?.loginName
-//        descriptionLabel.text = profileService.profile?.bio
-//    }
-    
+    private func updateAvatar() {
+           guard
+               let profileImageURL = ProfileImageService.shared.avatarURL,
+               let url = URL(string: profileImageURL)
+           else { return }
+        
+        let cache = ImageCache.default
+        cache.clearDiskCache()
+        cache.clearMemoryCache()
+        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: url,
+                                     options: [.processor(processor)])
+       }
+
     @objc func didTapButton() {
         profileImageView.image = UIImage(systemName: "person.crop.circle.fill")
         profileImageView.tintColor = .gray
@@ -137,14 +139,11 @@ class ProfileViewController: UIViewController {
         ])
     }
 }
-
 extension ProfileViewController {
-    private func updateAvatar() {                                   // 8
-            guard
-                let profileImageURL = ProfileImageService.shared.avatarURL,
-                let url = URL(string: profileImageURL)
-            else { return }
-            // TODO [Sprint 11] Обновить аватар, используя Kingfisher
-        print("ava")
-        }
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profileService.profile else {return}
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
 }
