@@ -4,8 +4,10 @@ import Foundation
 class OAuth2Service {
     
     static let shared = OAuth2Service()
-    
-    private let urlSession = URLSession.shared
+    private let storage: OAuth2TokenStorage
+    private let urlSession: URLSession
+    private var lastCode: String?
+    private var currentTask: URLSessionTask?
     private (set) var authToken: String? {
         get {
             return OAuth2TokenStorage().token
@@ -15,24 +17,33 @@ class OAuth2Service {
         }
     }
     
-    private init() {
+    init(urlSession: URLSession = .shared,
+         storage: OAuth2TokenStorage = .shared) {
+        self.urlSession = urlSession
+        self.storage = storage
     }
     
     func fetchAuthToken(_ code: String,
                         completion: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        if lastCode == code { return }
+        currentTask?.cancel()
+        lastCode = code
+        
         let request = authTokenRequest(code: code)
-        let task = object(for: request) { [weak self] result in
+        
+        currentTask = urlSession.objectTask(for: request) { [weak self] (response: Result<OAuthTokenResponseBody, Error>)in
+            self?.currentTask = nil
             guard let self = self else { return }
-            switch result {
+            switch response {
             case .success(let body):
                 let authToken = body.accessToken
-                self.authToken = authToken
+                self.storage.token = authToken
                 completion(.success(authToken))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
-        task.resume()
     }
     
     private func authTokenRequest(code: String) -> URLRequest {
@@ -46,17 +57,6 @@ class OAuth2Service {
             httpMethod: "POST",
             baseURL: URL(string: "https://unsplash.com")!)
     }
-    
-    private func object(
-        for request: URLRequest,
-        completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void) -> URLSessionTask {
-            let decoder = JSONDecoder()
-            return urlSession.data(for: request) { (result: Result<Data, Error>) in
-                let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
-                    Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
-                }
-                completion(response)
-            }
-        }
 }
+
 

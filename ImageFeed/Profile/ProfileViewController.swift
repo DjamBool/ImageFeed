@@ -6,9 +6,17 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
-    private let profileImageView: UIImageView = {
+    
+    private let storageToken = OAuth2TokenStorage.shared
+    private let profileService = ProfileService.shared
+    private var profile : Profile? 
+    
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
+    private lazy var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(named: "Userpick")
@@ -18,7 +26,7 @@ class ProfileViewController: UIViewController {
     private var logoutButton: UIButton = {
         let button = UIButton.systemButton(
             with: (UIImage(named: "Exit"))!,
-            target: self,
+            target: ProfileViewController.self,
             action: #selector(Self.didTapButton))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = UIColor(named: "YP Red")
@@ -59,7 +67,34 @@ class ProfileViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(loginNameLabel)
         view.addSubview(descriptionLabel)
+        
+        updateProfileDetails(profile: profile)
         layout()
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        
+        let cache = ImageCache.default
+        cache.clearDiskCache()
+        cache.clearMemoryCache()
+        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: url,
+                                     options: [.processor(processor)])
     }
     
     @objc func didTapButton() {
@@ -102,5 +137,13 @@ class ProfileViewController: UIViewController {
             descriptionLabel.heightAnchor.constraint(equalToConstant: 18),
             descriptionLabel.widthAnchor.constraint(equalToConstant: 241)
         ])
+    }
+}
+extension ProfileViewController {
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profileService.profile else {return}
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
     }
 }
