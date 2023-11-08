@@ -5,11 +5,11 @@ final class ProfileService {
     
     static let shared = ProfileService()
     private (set) var profile: Profile?
-
+    
     private let urlSession = URLSession.shared
     private var lastToken: String?
     private var currentTask: URLSessionTask?
-
+    
     func fetchProfile(_ token: String,
                       completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
@@ -45,5 +45,5 @@ final class ProfileService {
                                    baseURL: URL(string: defaultApiBaseURL)!
         )
     }
-    }
+}
 

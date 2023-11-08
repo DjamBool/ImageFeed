@@ -12,8 +12,8 @@ class ProfileViewController: UIViewController {
     
     private let storageToken = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
-    private var profile : Profile? //ProfileService.shared.profile
-   
+    private var profile : Profile? 
+    
     private var profileImageServiceObserver: NSObjectProtocol?
     
     private lazy var profileImageView: UIImageView = {
@@ -71,22 +71,22 @@ class ProfileViewController: UIViewController {
         updateProfileDetails(profile: profile)
         layout()
         profileImageServiceObserver = NotificationCenter.default
-                    .addObserver(
-                        forName: ProfileImageService.DidChangeNotification,
-                        object: nil,
-                        queue: .main
-                    ) { [weak self] _ in
-                        guard let self = self else { return }
-                        self.updateAvatar()
-                    }
-                updateAvatar()
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
     
     private func updateAvatar() {
-           guard
-               let profileImageURL = ProfileImageService.shared.avatarURL,
-               let url = URL(string: profileImageURL)
-           else { return }
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
         
         let cache = ImageCache.default
         cache.clearDiskCache()
@@ -95,8 +95,8 @@ class ProfileViewController: UIViewController {
         profileImageView.kf.indicatorType = .activity
         profileImageView.kf.setImage(with: url,
                                      options: [.processor(processor)])
-       }
-
+    }
+    
     @objc func didTapButton() {
         profileImageView.image = UIImage(systemName: "person.crop.circle.fill")
         profileImageView.tintColor = .gray

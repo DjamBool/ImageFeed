@@ -25,7 +25,6 @@ final class ProfileImageService {
             case .success(let profiePhoto):
                 guard let smallPhoto = profiePhoto.profileImage?.small else { return }
                 self.avatarURL = smallPhoto
-                print("ava = \(String(describing: self.avatarURL))")
                 completion(.success(smallPhoto))
                 NotificationCenter.default.post(
                     name: ProfileImageService.DidChangeNotification,
@@ -37,6 +36,7 @@ final class ProfileImageService {
                 completion(.failure(error))
             }
         })
+        task?.resume()
     }
     
     private func makeRequest(userName: String) -> URLRequest? {

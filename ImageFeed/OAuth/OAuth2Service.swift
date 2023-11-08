@@ -27,8 +27,8 @@ class OAuth2Service {
                         completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         if lastCode == code { return }
-                currentTask?.cancel()
-                lastCode = code
+        currentTask?.cancel()
+        lastCode = code
         
         let request = authTokenRequest(code: code)
         

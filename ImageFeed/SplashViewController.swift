@@ -3,7 +3,6 @@ import UIKit
 import ProgressHUD
 
 class SplashViewController: UIViewController {
-    //private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let profileService = ProfileService.shared
     private let oauth2Service = OAuth2Service.shared
     private var profile: Profile?
@@ -13,7 +12,7 @@ class SplashViewController: UIViewController {
     private let authVCid = "AuthViewControllerID"
     
     private lazy var logoImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.image = UIImage(named: logoName)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -64,21 +63,6 @@ class SplashViewController: UIViewController {
     }
 }
 
-// MARK: - Segue Preparation
-extension SplashViewController {
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-//            guard
-//                let navigationController = segue.destination as? UINavigationController,
-//                let viewController = navigationController.viewControllers[0] as? AuthViewController
-//            else { fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
-//            viewController.delegate = self
-//        } else {
-//            super.prepare(for: segue, sender: sender)
-//        }
-//    }
-}
-
 // MARK: - extension SplashViewController: AuthViewControllerDelegate
 
 extension SplashViewController: AuthViewControllerDelegate {
@@ -86,7 +70,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            //UIBlockingProgressHUD.show()
+            UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
         }
     }
@@ -109,23 +93,11 @@ extension SplashViewController: AuthViewControllerDelegate {
         profileService.fetchProfile(token) { [weak self] profileResult  in
             guard let self = self else { return }
             switch profileResult {
-            case .success: //(let profile):
-                //UIBlockingProgressHUD.dismiss()
-                // self.profile = profile
-                //self.fetchProfileImageURL()
-                
-                //добавлено для аватар урл:
+            case .success(let profile):
+                UIBlockingProgressHUD.dismiss()
+                self.profile = profile
                 if let userName = self.profileService.profile?.username {
                     fetchProfileImageURL(username: userName)
-                    //                    self.profileImageService.fetchProfileImageURL(username: userName) { result in
-                    //                        switch result {
-                    //                        case .success(let imageUrl):
-                    //                            print("Avatar URL: \(imageUrl)")
-                    //                        case .failure(let error):
-                    //                            print("error - \(error)")
-                    //                        }
-                    //                    }
-                    //конец
                     self.switchToTabBarController()
                     UIBlockingProgressHUD.dismiss()
                 }
@@ -136,6 +108,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             }
         }
     }
+    
     private func fetchProfileImageURL(username: String) {
         profileImageService.fetchProfileImageURL(username: username) { result in
             switch result {
