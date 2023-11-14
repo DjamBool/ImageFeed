@@ -22,10 +22,6 @@ final class ImagesListService {
         assert(Thread.isMainThread)
         guard task == nil else { return }
         let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
-//        guard let token = OAuth2TokenStorage.shared.token else {
-//            print("there is no token for the makePhotolistRequest")
-//            return
-//        }
         guard let request = makePhotolistRequest(page: nextPage) else {
             assertionFailure("Invalid request for fetchPhotosNextPage")
             return
@@ -44,7 +40,7 @@ final class ImagesListService {
                     NotificationCenter.default
                         .post(name: ImagesListService.DidChangeNotification,
                               object: self)
-//
+                    //
                 case .failure(let error):
                     assertionFailure("Failed to fetch photos, \(error)")
                 }
@@ -67,9 +63,47 @@ final class ImagesListService {
     }
     
     func convert(result: PhotoResult) -> Photo {
-        //let photo = Photo.init(...)
         let photo = Photo(id: result.id,
-                               size: CGSize(width: result.width, height: result.height), createdAt: dateFormatter(result.createdAt), welcomeDescription: result.description, thumbImageURL: result.urls?.thumb, largeImageURL: result.urls?.full, isLiked: result.likedByUser ?? false)
+                          size: CGSize(width: result.width, height: result.height),
+                          createdAt: dateFormatter(result.createdAt),
+                          welcomeDescription: result.description,
+                          thumbImageURL: result.urls?.thumb,
+                          largeImageURL: result.urls?.full,
+                          isLiked: result.likedByUser ?? false)
         return photo
+    }
+}
+
+extension ImagesListService {
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        task? .cancel()
+        guard let request = fetchLikeRequest(photoId: photoId, isLike: isLike) else {
+            assertionFailure("Invalid like request")
+            return
+        }
+        let session = URLSession.shared
+        let task = session.objectTask(for: request) { [weak self] (result: Result<PhotoLikeResponse, Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.task = nil
+                if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+                    self.photos[index].isLiked = (response.photo?.likedByUser)!
+                }
+                completion(.success(()))
+            case .failure(let error):
+                print("Fetch Like Error - \(error)")
+                completion(.failure(error))
+            }
+        }
+        self.task = task
+        task.resume()
+    }
+    
+    func fetchLikeRequest(photoId: String, isLike: Bool) -> URLRequest? {
+        URLRequest.makeHTTPRequest(path: "photos/\(photoId)/like",
+                                   httpMethod: isLike ? "POST" : "DELETE",
+                                   baseURL: defaultBaseURL)
     }
 }

@@ -7,8 +7,6 @@ final class SingleImageViewController: UIViewController {
     var imageURL: URL? {
         didSet {
             guard isViewLoaded else { return }
-            //imageView.image = imageURL
-           // rescaleAndCenterImageInScrollView(image: imageURL)
             setImage()
         }
     }
@@ -19,10 +17,6 @@ final class SingleImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       // imageView.image = imageURL
-        //rescaleAndCenterImageInScrollView(image: imageURL)
-        
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         setImage()
@@ -48,12 +42,27 @@ final class SingleImageViewController: UIViewController {
                 self.rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure:
                 print("error")
+                self.showErrorAlert()
             }
             UIBlockingProgressHUD.dismiss()
         }
     }
+    
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: "Error",
+                                      message: "Что-то пошло не так. Попробовать ещё раз?",
+                                      preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Не надо",
+                                         style: .cancel)
+        let repeatAction = UIAlertAction(title: "Повторить", style: .default) { [weak self] _ in
+            self?.setImage()
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(repeatAction)
+        present(alert, animated: true)
+    }
 }
-
 // MARK: - extension SingleImageViewController: UIScrollViewDelegate
 
 extension SingleImageViewController: UIScrollViewDelegate {
@@ -90,3 +99,7 @@ extension SingleImageViewController {
         
     }
 }
+
+
+
+

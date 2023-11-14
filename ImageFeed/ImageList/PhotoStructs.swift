@@ -20,7 +20,7 @@ struct PhotoResult: Codable {
     let description: String?
     let user: UserResult
     let urls: UrlsResult?
-
+    
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -35,7 +35,7 @@ struct PhotoResult: Codable {
         case description
         case user
         case urls
-
+        
     }
 }
 
@@ -50,12 +50,15 @@ struct UrlsResult: Codable {
 struct Photo {
     let id: String
     let size: CGSize
-//    let width: CGFloat
-//    let height: CGFloat
+    //    let width: CGFloat
+    //    let height: CGFloat
     let createdAt: Date?
     let welcomeDescription: String?
     let thumbImageURL: String?
     let largeImageURL: String?
-    let isLiked: Bool
+    var isLiked: Bool
 } 
 
+struct PhotoLikeResponse: Decodable {
+    let photo: PhotoResult?
+}
