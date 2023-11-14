@@ -7,12 +7,14 @@
 
 import UIKit
 import Kingfisher
+import WebKit
+import SwiftKeychainWrapper
 
 class ProfileViewController: UIViewController {
     
     private let storageToken = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
-    private var profile : Profile? 
+    private var profile : Profile?
     
     private var profileImageServiceObserver: NSObjectProtocol?
     
@@ -26,7 +28,7 @@ class ProfileViewController: UIViewController {
     private var logoutButton: UIButton = {
         let button = UIButton.systemButton(
             with: (UIImage(named: "Exit"))!,
-            target: ProfileViewController.self,
+            target: self,
             action: #selector(Self.didTapButton))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = UIColor(named: "YP Red")
@@ -98,11 +100,12 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func didTapButton() {
-        profileImageView.image = UIImage(systemName: "person.crop.circle.fill")
-        profileImageView.tintColor = .gray
-        nameLabel.text = ""
-        descriptionLabel.text = ""
-        loginNameLabel.text = ""
+        KeychainWrapper.standard.removeAllKeys()
+        clean()
+        tabBarController?.dismiss(animated: true)
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
     }
     
     func layout() {
@@ -145,5 +148,19 @@ extension ProfileViewController {
         nameLabel.text = profile.name
         loginNameLabel.text = profile.loginName
         descriptionLabel.text = profile.bio
+    }
+}
+
+extension ProfileViewController {
+    func clean() {
+        // Очищаем все куки из хранилища.
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        // Запрашиваем все данные из локального хранилища.
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            // Массив полученных записей удаляем из хранилища.
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }
