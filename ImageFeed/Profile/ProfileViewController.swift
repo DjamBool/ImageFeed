@@ -100,12 +100,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func didTapButton() {
-        KeychainWrapper.standard.removeAllKeys()
-        clean()
-        tabBarController?.dismiss(animated: true)
-        guard let window = UIApplication.shared.windows.first else {
-            fatalError("Invalid Configuration") }
-        window.rootViewController = SplashViewController()
+        showExitConfirmation()
     }
     
     func layout() {
@@ -162,5 +157,31 @@ extension ProfileViewController {
                 WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
             }
         }
+    }
+}
+
+extension ProfileViewController {
+    func showExitConfirmation() {
+        let alert = UIAlertController(title: "Пока, пока!",
+                                      message: "Уверены, что хотите выйти?",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Да", style: .default) {[weak self] _ in
+            guard let self = self else { return }
+            self.logout()
+        }
+        let cancelAction = UIAlertAction(title: "Нет", style: .cancel)
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func logout() {
+        KeychainWrapper.standard.removeAllKeys()
+        clean()
+        tabBarController?.dismiss(animated: true)
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
     }
 }

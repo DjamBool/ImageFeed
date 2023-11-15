@@ -35,7 +35,6 @@
 		30FA66AC2AFAB78500087308 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA66AB2AFAB78500087308 /* TabBarController.swift */; };
 		30FA66AE2AFCC64A00087308 /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA66AD2AFCC64A00087308 /* ImagesListService.swift */; };
 		30FA66B02AFCC6FF00087308 /* PhotoStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA66AF2AFCC6FF00087308 /* PhotoStructs.swift */; };
-		30FA66B82AFD5E3A00087308 /* ImagesListServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA66B72AFD5E3A00087308 /* ImagesListServiceTests.swift */; };
 		30FFA35A2ABDCD2A00A00E1F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFA3592ABDCD2A00A00E1F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +77,6 @@
 		30FA66AD2AFCC64A00087308 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
 		30FA66AF2AFCC6FF00087308 /* PhotoStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStructs.swift; sourceTree = "<group>"; };
 		30FA66B52AFD5E3A00087308 /* ImageFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		30FA66B72AFD5E3A00087308 /* ImagesListServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListServiceTests.swift; sourceTree = "<group>"; };
 		30FFA3592ABDCD2A00A00E1F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				30D9B3542A9CD59C0086FE71 /* ImageFeed */,
-				30FA66B62AFD5E3A00087308 /* ImageFeedTests */,
 				30D9B3532A9CD59C0086FE71 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -201,14 +198,6 @@
 				30868C602AAB398D00E062C3 /* SingleImageViewController.swift */,
 			);
 			path = SingleImageViewController;
-			sourceTree = "<group>";
-		};
-		30FA66B62AFD5E3A00087308 /* ImageFeedTests */ = {
-			isa = PBXGroup;
-			children = (
-				30FA66B72AFD5E3A00087308 /* ImagesListServiceTests.swift */,
-			);
-			path = ImageFeedTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,7 +341,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30FA66B82AFD5E3A00087308 /* ImagesListServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
