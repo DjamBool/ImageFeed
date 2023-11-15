@@ -127,7 +127,7 @@ extension ImagesListViewController {
         if let date = imagesListService.photos[indexPath.row].createdAt {
             cell.dateLabel.text = dateFormatter.string(from: date)
         } else {
-            cell.dateLabel.text = "date unknown"
+            cell.dateLabel.text = ""
         }
     }
 }

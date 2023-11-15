@@ -40,7 +40,6 @@ final class ImagesListService {
                     NotificationCenter.default
                         .post(name: ImagesListService.DidChangeNotification,
                               object: self)
-                    //
                 case .failure(let error):
                     assertionFailure("Failed to fetch photos, \(error)")
                 }
@@ -57,15 +56,10 @@ final class ImagesListService {
                                    baseURL: defaultBaseURL)
     }
     
-    private func dateFormatter(_ date: String) -> Date? {
-        let dateFormatter = ISO8601DateFormatter()
-        return dateFormatter.date(from: date)
-    }
-    
     func convert(result: PhotoResult) -> Photo {
         let photo = Photo(id: result.id,
                           size: CGSize(width: result.width, height: result.height),
-                          createdAt: dateFormatter(result.createdAt),
+                          createdAt: self.dateFormatter.date(from: result.createdAt),
                           welcomeDescription: result.description,
                           thumbImageURL: result.urls?.thumb,
                           largeImageURL: result.urls?.full,
