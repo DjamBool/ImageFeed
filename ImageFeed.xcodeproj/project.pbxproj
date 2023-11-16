@@ -624,7 +624,7 @@
 			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 13.0.0;
+				minimumVersion = 13.8.6;
 			};
 		};
 		30FA66A32AFA710400087308 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
