@@ -111,7 +111,7 @@ extension ImagesListViewController: UITableViewDelegate {
 
 extension ImagesListViewController {
     func config(cell: ImagesListCell, indexPath: IndexPath) {
-        let url = URL(string: photos[indexPath.row].largeImageURL!)
+        let url = URL(string: photos[indexPath.row].thumbImageURL!)
         cell.cellImage.kf.indicatorType = .activity
         cell.cellImage.kf.setImage(with: url,
                                    placeholder: UIImage(named: "blankImage")) { [weak self] _ in
