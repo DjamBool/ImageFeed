@@ -1,28 +1,25 @@
 
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
     
-    var image: UIImage! {
+    var imageURL: URL? {
         didSet {
             guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
+            setImage()
         }
     }
     
-    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet private weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
-        
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
+        setImage()
     }
     
     @IBAction private func didTapBackButton() {
@@ -31,13 +28,41 @@ final class SingleImageViewController: UIViewController {
     
     @IBAction func didTapShareButton() {
         let share = UIActivityViewController(
-            activityItems: [image as Any],
+            activityItems: [imageURL as Any],
             applicationActivities: nil)
         present(share, animated: true, completion: nil)
     }
     
+    private func setImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageURL) {[weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                print("error")
+                self.showErrorAlert()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: "Error",
+                                      message: "Что-то пошло не так. Попробовать ещё раз?",
+                                      preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Не надо",
+                                         style: .cancel)
+        let repeatAction = UIAlertAction(title: "Повторить", style: .default) { [weak self] _ in
+            self?.setImage()
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(repeatAction)
+        present(alert, animated: true)
+    }
 }
-
 // MARK: - extension SingleImageViewController: UIScrollViewDelegate
 
 extension SingleImageViewController: UIScrollViewDelegate {
@@ -74,3 +99,7 @@ extension SingleImageViewController {
         
     }
 }
+
+
+
+

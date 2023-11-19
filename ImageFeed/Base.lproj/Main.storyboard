@@ -169,7 +169,10 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-Ow-jf8" userLabel="Like Button">
                                                     <rect key="frame" x="332" y="4" width="66" height="56"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="like_button_on" title=""/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="like_button_off" title=""/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked" destination="Mm8-Lh-E5y" eventType="touchUpInside" id="xtz-Jw-SLO"/>
+                                                    </connections>
                                                 </button>
                                                 <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuJ-Bz-LcM">
                                                     <rect key="frame" x="0.0" y="203" width="414" height="37"/>
@@ -348,7 +351,7 @@
         <image name="0" width="200" height="132"/>
         <image name="auth_screen_logo" width="60" height="60"/>
         <image name="chevron.backward" width="9" height="16"/>
-        <image name="like_button_on" width="42" height="42"/>
+        <image name="like_button_off" width="42" height="42"/>
         <image name="nav_back_button" width="9" height="16"/>
         <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
