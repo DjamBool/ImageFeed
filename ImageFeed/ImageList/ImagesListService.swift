@@ -53,7 +53,7 @@ final class ImagesListService {
     private func makePhotolistRequest(page: Int) -> URLRequest? {
         URLRequest.makeHTTPRequest(path: "/photos?page=\(page)&&per_page=\(perPage)",
                                    httpMethod: "GET",
-                                   baseURL: defaultBaseURL)
+                                   baseURL: DefaultBaseURL)
     }
     
     func convert(result: PhotoResult) -> Photo {
@@ -98,6 +98,6 @@ extension ImagesListService {
     func fetchLikeRequest(photoId: String, isLike: Bool) -> URLRequest? {
         URLRequest.makeHTTPRequest(path: "photos/\(photoId)/like",
                                    httpMethod: isLike ? "POST" : "DELETE",
-                                   baseURL: defaultBaseURL)
+                                   baseURL: DefaultBaseURL)
     }
 }
