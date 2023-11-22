@@ -10,15 +10,29 @@ import Kingfisher
 import WebKit
 import SwiftKeychainWrapper
 
-class ProfileViewController: UIViewController {
+ protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol? { get set }
+    var profileImageView: UIImageView {get set}
+    var nameLabel: UILabel {get set}
+    var loginNameLabel: UILabel {get set}
+    var descriptionLabel: UILabel {get set}
+    //func viewDidLoad()
+//    func setAvatar()
+   // func updateProfileDetails(profile: Profile?)
     
-    private let storageToken = OAuth2TokenStorage.shared
+}
+
+class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+    var presenter: ProfileViewPresenterProtocol? = {
+        return ProfileViewPresenter()
+    }()
+  //  private let storageToken = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
     private var profile : Profile?
     
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    private lazy var profileImageView: UIImageView = {
+      var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(named: "Userpick")
@@ -35,7 +49,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    private let nameLabel: UILabel = {
+   var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "Екатерина Новикова"
@@ -44,7 +58,7 @@ class ProfileViewController: UIViewController {
         return nameLabel
     }()
     
-    private let loginNameLabel: UILabel = {
+    var loginNameLabel: UILabel = {
         let loginNameLabel = UILabel()
         loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
         loginNameLabel.text = "@ekaterina_nov"
@@ -53,7 +67,7 @@ class ProfileViewController: UIViewController {
         return loginNameLabel
     }()
     
-    private let descriptionLabel: UILabel = {
+    var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.text = "Hello, world!"
@@ -69,35 +83,36 @@ class ProfileViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(loginNameLabel)
         view.addSubview(descriptionLabel)
-        
-        updateProfileDetails(profile: profile)
+        presenter?.view = self
+        //updateProfileDetails(profile: profile)
+        presenter?.viewDidLoad()
         layout()
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.DidChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
-        updateAvatar()
+//        profileImageServiceObserver = NotificationCenter.default
+//            .addObserver(
+//                forName: ProfileImageService.DidChangeNotification,
+//                object: nil,
+//                queue: .main
+//            ) { [weak self] _ in
+//                guard let self = self else { return }
+//                self.updateAvatar()
+//            }
+        //updateAvatar()
     }
     
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-        
-        let cache = ImageCache.default
-        cache.clearDiskCache()
-        cache.clearMemoryCache()
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
-        profileImageView.kf.indicatorType = .activity
-        profileImageView.kf.setImage(with: url,
-                                     options: [.processor(processor)])
-    }
+//    private func updateAvatar() {
+//        guard
+//            let profileImageURL = ProfileImageService.shared.avatarURL,
+//            let url = URL(string: profileImageURL)
+//        else { return }
+//        
+//        let cache = ImageCache.default
+//        cache.clearDiskCache()
+//        cache.clearMemoryCache()
+//        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+//        profileImageView.kf.indicatorType = .activity
+//        profileImageView.kf.setImage(with: url,
+//                                     options: [.processor(processor)])
+//    }
     
     @objc func didTapButton() {
         showExitConfirmation()
@@ -137,14 +152,23 @@ class ProfileViewController: UIViewController {
         ])
     }
 }
-extension ProfileViewController {
-    private func updateProfileDetails(profile: Profile?) {
-        guard let profile = profileService.profile else {return}
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
-}
+//extension ProfileViewController {
+//     func updateProfileDetails(profile: Profile?) {
+////        guard let profile = profileService.profile else {return}
+////        nameLabel.text = profile.name
+////        loginNameLabel.text = profile.loginName
+////        descriptionLabel.text = profile.bio
+//         if let profile {
+//             nameLabel.text = profile.name
+//             loginNameLabel.text = profile.loginName
+//             descriptionLabel.text = profile.bio
+//         } else {
+//             nameLabel.text = ""
+//             loginNameLabel.text = ""
+//             descriptionLabel.text = ""
+//         }
+//    }
+//}
 
 extension ProfileViewController {
     func clean() {

@@ -13,9 +13,7 @@ protocol AuthHelperProtocol {
 }
 
 class AuthHelper: AuthHelperProtocol {
- 
-    let configuration: AuthConfiguration
-    
+     let configuration: AuthConfiguration
     init(configuration: AuthConfiguration = .standard) {
         self.configuration = configuration
     }

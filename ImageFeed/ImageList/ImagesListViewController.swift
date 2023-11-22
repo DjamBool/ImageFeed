@@ -2,7 +2,16 @@
 import UIKit
 import Kingfisher
 
-class ImagesListViewController: UIViewController {
+
+protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListPresenterProtocol? { get set }
+}
+
+
+class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
+    var presenter: ImagesListPresenterProtocol? = {
+        return ImagesListPresenter()
+    }()
     
     private let singleImageSegueIdentifier = "ShowSingleImage"
     private let imagesListService = ImagesListService.shared
