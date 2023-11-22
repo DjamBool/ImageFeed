@@ -11,22 +11,18 @@ import WebKit
 import SwiftKeychainWrapper
 
  protocol ProfileViewControllerProtocol: AnyObject {
-    var presenter: ProfileViewPresenterProtocol? { get set }
+    var presenter: ProfileViewPresenterProtocol { get set }
     var profileImageView: UIImageView {get set}
     var nameLabel: UILabel {get set}
     var loginNameLabel: UILabel {get set}
     var descriptionLabel: UILabel {get set}
-    //func viewDidLoad()
-//    func setAvatar()
-   // func updateProfileDetails(profile: Profile?)
-    
+    func logout()
 }
 
 class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
-    var presenter: ProfileViewPresenterProtocol? = {
+    var presenter: ProfileViewPresenterProtocol = {
         return ProfileViewPresenter()
     }()
-  //  private let storageToken = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
     private var profile : Profile?
     
@@ -83,36 +79,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         view.addSubview(nameLabel)
         view.addSubview(loginNameLabel)
         view.addSubview(descriptionLabel)
-        presenter?.view = self
-        //updateProfileDetails(profile: profile)
-        presenter?.viewDidLoad()
+        presenter.view = self
+        presenter.viewDidLoad()
         layout()
-//        profileImageServiceObserver = NotificationCenter.default
-//            .addObserver(
-//                forName: ProfileImageService.DidChangeNotification,
-//                object: nil,
-//                queue: .main
-//            ) { [weak self] _ in
-//                guard let self = self else { return }
-//                self.updateAvatar()
-//            }
-        //updateAvatar()
     }
-    
-//    private func updateAvatar() {
-//        guard
-//            let profileImageURL = ProfileImageService.shared.avatarURL,
-//            let url = URL(string: profileImageURL)
-//        else { return }
-//        
-//        let cache = ImageCache.default
-//        cache.clearDiskCache()
-//        cache.clearMemoryCache()
-//        let processor = RoundCornerImageProcessor(cornerRadius: 35)
-//        profileImageView.kf.indicatorType = .activity
-//        profileImageView.kf.setImage(with: url,
-//                                     options: [.processor(processor)])
-//    }
     
     @objc func didTapButton() {
         showExitConfirmation()
@@ -152,23 +122,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         ])
     }
 }
-//extension ProfileViewController {
-//     func updateProfileDetails(profile: Profile?) {
-////        guard let profile = profileService.profile else {return}
-////        nameLabel.text = profile.name
-////        loginNameLabel.text = profile.loginName
-////        descriptionLabel.text = profile.bio
-//         if let profile {
-//             nameLabel.text = profile.name
-//             loginNameLabel.text = profile.loginName
-//             descriptionLabel.text = profile.bio
-//         } else {
-//             nameLabel.text = ""
-//             loginNameLabel.text = ""
-//             descriptionLabel.text = ""
-//         }
-//    }
-//}
 
 extension ProfileViewController {
     func clean() {
@@ -186,21 +139,11 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     func showExitConfirmation() {
-        let alert = UIAlertController(title: "Пока, пока!",
-                                      message: "Уверены, что хотите выйти?",
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Да", style: .default) {[weak self] _ in
-            guard let self = self else { return }
-            self.logout()
-        }
-        let cancelAction = UIAlertAction(title: "Нет", style: .cancel)
-        
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
+         let alert = presenter.showExitConfirmation()
         present(alert, animated: true, completion: nil)
     }
     
-    private func logout() {
+     func logout() {
         KeychainWrapper.standard.removeAllKeys()
         clean()
         tabBarController?.dismiss(animated: true)
