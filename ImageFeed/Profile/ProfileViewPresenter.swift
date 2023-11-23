@@ -70,10 +70,12 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
         let alert = UIAlertController(title: "Пока, пока!",
                                       message: "Уверены, что хотите выйти?",
                                       preferredStyle: .alert)
+        alert.view.accessibilityIdentifier = "goodbye"
         let okAction = UIAlertAction(title: "Да", style: .default) {[weak self] _ in
             guard let self = self else { return }
             view?.logout()
         }
+        okAction.accessibilityIdentifier = "Yes"
         let cancelAction = UIAlertAction(title: "Нет", style: .cancel)
         
         alert.addAction(okAction)
