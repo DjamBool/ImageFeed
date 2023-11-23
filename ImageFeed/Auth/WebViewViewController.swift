@@ -17,7 +17,7 @@ public protocol WebViewViewControllerProtocol: AnyObject {
 }
 
 final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
-  
+    
     var presenter: WebViewPresenterProtocol?
     
     @IBOutlet private var webView: WKWebView!

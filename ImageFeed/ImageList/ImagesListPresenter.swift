@@ -12,11 +12,10 @@ protocol ImagesListPresenterProtocol {
     var photosCount: Int { get }
     func viewDidLoad()
     func viewDidDisappear()
-    //func updateTableViewAnimated()
 }
 
 class ImagesListPresenter: ImagesListPresenterProtocol {
- 
+    
     
     var photos = [Photo]()
     var photosCount: Int {
@@ -48,20 +47,4 @@ class ImagesListPresenter: ImagesListPresenterProtocol {
                                                   name: ImagesListService.DidChangeNotification,
                                                   object: nil)
     }
-    
-//    func updateTableViewAnimated() {
-//        let oldCount = photos.count
-//        let newCount = imagesListService.photos.count
-//        photos = imagesListService.photos
-//        if oldCount != newCount {
-//            var indexPaths = [IndexPath]()
-//            view?.tableView.performBatchUpdates {
-//                indexPaths = (oldCount..<newCount).map { i in
-//                    IndexPath(row: i, section: 0)
-//                }
-//                view?.tableView.insertRows(at: indexPaths, with: .automatic)
-//            } completion: { _ in }
-//        }
-//      //  view?.updateTableViewAnimated()
-//   }
 }

@@ -11,7 +11,7 @@ import UIKit
 import Foundation
 
 final class ImagesListTests: XCTestCase {
-
+    
     func testViewDidLoad() {
         //given
         let presenter = ImagesListPresenterSpy()
@@ -82,7 +82,6 @@ final class ImagesListPresenterSpy: ImagesListPresenterProtocol {
     var photosCount: Int = 0
     var viewDidLoadCalled: Bool = false
     var viewDidDisappearCalled: Bool = false
-    //var updateTableViewAnimatedCalled: Bool = false
     
     func viewDidLoad() {
         viewDidLoadCalled = true
@@ -91,8 +90,4 @@ final class ImagesListPresenterSpy: ImagesListPresenterProtocol {
     func viewDidDisappear() {
         viewDidDisappearCalled = true
     }
-    
-//    func updateTableViewAnimated() {
-//        updateTableViewAnimatedCalled = true
-//    }
 }

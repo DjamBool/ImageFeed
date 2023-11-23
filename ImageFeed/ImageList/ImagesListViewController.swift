@@ -39,21 +39,11 @@ class ImagesListViewController: UIViewController, ImagesListViewControllerProtoc
         
         presenter?.view = self
         presenter?.viewDidLoad()
-//        NotificationCenter.default.addObserver(forName: ImagesListService.DidChangeNotification,
-//                                               object: nil,
-//                                               queue: .main) { [weak self] _ in
-//            guard let self = self else { return }
-//            self.updateTableViewAnimated()
-//        }
-//        imagesListService.fetchPhotosNextPage()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         presenter?.viewDidDisappear()
-//        NotificationCenter.default.removeObserver(self,
-//                                                  name: ImagesListService.DidChangeNotification,
-//                                                  object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -69,7 +59,7 @@ class ImagesListViewController: UIViewController, ImagesListViewControllerProtoc
     }
     
     func configTableView() {
-        tableView.contentInset = UIEdgeInsets(top: 12, 
+        tableView.contentInset = UIEdgeInsets(top: 12,
                                               left: 0,
                                               bottom: 12,
                                               right: 0)
@@ -87,7 +77,6 @@ class ImagesListViewController: UIViewController, ImagesListViewControllerProtoc
                 tableView.insertRows(at: indexPaths, with: .automatic)
             } completion: { _ in }
         }
-       // presenter?.updateTableViewAnimated()
     }
 }
 
@@ -113,9 +102,17 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == imagesListService.photos.count {
-            imagesListService.fetchPhotosNextPage()
-        }
+        
+         if !ProcessInfo.processInfo.arguments.contains("testMode") {
+             if indexPath.row + 1 == imagesListService.photos.count {
+                 imagesListService.fetchPhotosNextPage()
+             }
+         }
+
+         
+//        if indexPath.row + 1 == imagesListService.photos.count {
+//            imagesListService.fetchPhotosNextPage()
+//        }
     }
 }
 

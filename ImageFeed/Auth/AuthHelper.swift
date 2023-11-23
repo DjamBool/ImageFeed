@@ -13,14 +13,14 @@ protocol AuthHelperProtocol {
 }
 
 class AuthHelper: AuthHelperProtocol {
-     let configuration: AuthConfiguration
+    let configuration: AuthConfiguration
     init(configuration: AuthConfiguration = .standard) {
         self.configuration = configuration
     }
     
     func authRequest() -> URLRequest {
         let url = authURL()
-            return URLRequest(url: url)
+        return URLRequest(url: url)
     }
     
     func code(from url: URL) -> String? {

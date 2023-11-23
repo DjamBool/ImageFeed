@@ -9,8 +9,8 @@ import XCTest
 import Foundation
 
 final class ImageFeed_Tests: XCTestCase {
-
-//MARK: - Тестируем связь контроллера и презентера
+    
+    //MARK: - Тестируем связь контроллера и презентера
     func testViewControllerCallsViewDidLoad() {
         //given
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -21,10 +21,10 @@ final class ImageFeed_Tests: XCTestCase {
         //when
         _ = viewController.view
         //then
-        XCTAssertTrue(presenter.viewDidLoadCalled) //behaviour verification
+        XCTAssertTrue(presenter.viewDidLoadCalled)
     }
     
-// MARK: - тест вызова метода loadRequest после presenter.viewDidLoad()
+    // MARK: - тест вызова метода loadRequest после presenter.viewDidLoad()
     func testPresenterCallsLoadRequest() {
         //given
         let viewController = WebViewViewControllerSpy()
@@ -57,14 +57,14 @@ final class ImageFeed_Tests: XCTestCase {
         let authHelper = AuthHelper()
         let presenter = WebViewPresenter(authHelper: authHelper)
         let progress: Float = 1.0
-
+        
         //when
         let shouldHideProgress = presenter.shouldHideProgress(for: progress)
-
+        
         //then
         XCTAssertTrue(shouldHideProgress)
     }
-
+    
     
     // MARK: - Тестируем хелпер
     func testAuthHelperAuthURL() {
@@ -113,7 +113,7 @@ final class WebViewPresenterSpy: WebViewPresenterProtocol {
     }
     
     func didUpdateProgressValue(_ newValue: Double) {
-    
+        
     }
     
     func code(from url: URL) -> String? {
@@ -123,18 +123,18 @@ final class WebViewPresenterSpy: WebViewPresenterProtocol {
 
 final class WebViewViewControllerSpy: WebViewViewControllerProtocol {
     var presenter: ImageFeed.WebViewPresenterProtocol?
-
+    
     var loadRequestCalled: Bool = false
-
+    
     func load(request: URLRequest) {
         loadRequestCalled = true
     }
-
+    
     func setProgressValue(_ newValue: Float) {
-
+        
     }
-
+    
     func setProgressHidden(_ isHidden: Bool) {
-
+        
     }
 }
