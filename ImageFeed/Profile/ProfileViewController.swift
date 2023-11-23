@@ -10,13 +10,16 @@ import Kingfisher
 import WebKit
 import SwiftKeychainWrapper
 
- protocol ProfileViewControllerProtocol: AnyObject {
+protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfileViewPresenterProtocol { get set }
     var profileImageView: UIImageView {get set}
     var nameLabel: UILabel {get set}
     var loginNameLabel: UILabel {get set}
     var descriptionLabel: UILabel {get set}
+    func updateProfileDetails()
     func logout()
+    func showExitConfirmation()
+    func clean()
 }
 
 class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
@@ -28,7 +31,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
     private var profileImageServiceObserver: NSObjectProtocol?
     
-      var profileImageView: UIImageView = {
+    var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(named: "Userpick")
@@ -45,7 +48,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         return button
     }()
     
-   var nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "Екатерина Новикова"
@@ -82,11 +85,17 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         presenter.view = self
         presenter.viewDidLoad()
         layout()
+        updateProfileDetails()
     }
     
     @objc func didTapButton() {
         showExitConfirmation()
     }
+    
+    func updateProfileDetails() {
+        presenter.updateProfileDetails(profile: profile)
+    }
+    
     
     func layout() {
         NSLayoutConstraint.activate([
@@ -123,6 +132,8 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }
 }
 
+
+
 extension ProfileViewController {
     func clean() {
         // Очищаем все куки из хранилища.
@@ -139,11 +150,11 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     func showExitConfirmation() {
-         let alert = presenter.showExitConfirmation()
+        let alert = presenter.showExitConfirmation()
         present(alert, animated: true, completion: nil)
     }
     
-     func logout() {
+    func logout() {
         KeychainWrapper.standard.removeAllKeys()
         clean()
         tabBarController?.dismiss(animated: true)

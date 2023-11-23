@@ -14,6 +14,7 @@ protocol ProfileViewPresenterProtocol {
     func viewDidLoad()
     func updateAvatar()
     func showExitConfirmation() -> UIAlertController
+    func updateProfileDetails(profile: Profile?)
 }
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
@@ -26,7 +27,7 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     var profile: Profile?
     
     func viewDidLoad() {
-        updateProfileDetails(profile: profile)
+       // updateProfileDetails(profile: profile)
         updateAvatar()
         observeNotification()
     }
