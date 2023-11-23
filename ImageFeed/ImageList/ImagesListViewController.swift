@@ -5,6 +5,11 @@ import Kingfisher
 
 protocol ImagesListViewControllerProtocol: AnyObject {
     var presenter: ImagesListPresenterProtocol? { get set }
+    var tableView: UITableView! { get set }
+    func configTableView()
+    func viewDidLoad()
+    func viewDidDisappear(_ animated: Bool)
+    func updateTableViewAnimated()
 }
 
 
@@ -27,26 +32,28 @@ class ImagesListViewController: UIViewController, ImagesListViewControllerProtoc
         return formatter
     }()
     
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         
-        NotificationCenter.default.addObserver(forName: ImagesListService.DidChangeNotification,
-                                               object: nil,
-                                               queue: .main) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateTableViewAnimated()
-        }
-        imagesListService.fetchPhotosNextPage()
+        presenter?.view = self
+        presenter?.viewDidLoad()
+//        NotificationCenter.default.addObserver(forName: ImagesListService.DidChangeNotification,
+//                                               object: nil,
+//                                               queue: .main) { [weak self] _ in
+//            guard let self = self else { return }
+//            self.updateTableViewAnimated()
+//        }
+//        imagesListService.fetchPhotosNextPage()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: ImagesListService.DidChangeNotification,
-                                                  object: nil)
+        presenter?.viewDidDisappear()
+//        NotificationCenter.default.removeObserver(self,
+//                                                  name: ImagesListService.DidChangeNotification,
+//                                                  object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,18 +68,26 @@ class ImagesListViewController: UIViewController, ImagesListViewControllerProtoc
         }
     }
     
+    func configTableView() {
+        tableView.contentInset = UIEdgeInsets(top: 12, 
+                                              left: 0,
+                                              bottom: 12,
+                                              right: 0)
+    }
+    
     func updateTableViewAnimated() {
-        let oldCount = photos.count
-        let newCount = imagesListService.photos.count
-        photos = imagesListService.photos
-        if oldCount != newCount {
-            tableView.performBatchUpdates {
-                let indexPaths = (oldCount..<newCount).map { i in
-                    IndexPath(row: i, section: 0)
-                }
-                tableView.insertRows(at: indexPaths, with: .automatic)
-            } completion: { _ in }
-        }
+//        let oldCount = photos.count
+//        let newCount = imagesListService.photos.count
+//        photos = imagesListService.photos
+//        if oldCount != newCount {
+//            tableView.performBatchUpdates {
+//                let indexPaths = (oldCount..<newCount).map { i in
+//                    IndexPath(row: i, section: 0)
+//                }
+//                tableView.insertRows(at: indexPaths, with: .automatic)
+//            } completion: { _ in }
+//        }
+        presenter?.updateTableViewAnimated()
     }
 }
 
