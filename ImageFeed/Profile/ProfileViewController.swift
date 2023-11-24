@@ -133,8 +133,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }
 }
 
-
-
 extension ProfileViewController {
     func clean() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)

@@ -11,8 +11,8 @@ final class ImagesListService {
     static let shared = ImagesListService()
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
-    private var lastLoadedPage: Int?    //хранить номер последней скачанной страницы
-    private (set) var photos: [Photo] = []  //Хранить список уже скачанных фотографий
+    private var lastLoadedPage: Int?
+    private (set) var photos: [Photo] = []  
     private var photo: Photo?
     let perPage = 10
     private let dateFormatter = ISO8601DateFormatter()

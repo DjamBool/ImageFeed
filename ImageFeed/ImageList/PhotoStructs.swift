@@ -50,8 +50,6 @@ struct UrlsResult: Codable {
 struct Photo {
     let id: String
     let size: CGSize
-    //    let width: CGFloat
-    //    let height: CGFloat
     let createdAt: Date?
     let welcomeDescription: String?
     let thumbImageURL: String?

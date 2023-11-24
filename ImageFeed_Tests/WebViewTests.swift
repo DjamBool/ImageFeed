@@ -73,7 +73,7 @@ final class ImageFeed_Tests: XCTestCase {
         let authHelper = AuthHelper(configuration: configuration)
         
         //when
-        let url = authHelper.authURL()
+        guard let url = authHelper.authURL() else {return}
         let urlString = url.absoluteString
         
         //then
