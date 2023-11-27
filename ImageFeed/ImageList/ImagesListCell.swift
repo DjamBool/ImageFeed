@@ -23,7 +23,7 @@ final class ImagesListCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        makeGradient()
+      //  makeGradient()
     }
     
     @IBAction func likeButtonClicked() {

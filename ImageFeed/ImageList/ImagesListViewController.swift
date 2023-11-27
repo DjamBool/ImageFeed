@@ -2,7 +2,21 @@
 import UIKit
 import Kingfisher
 
-class ImagesListViewController: UIViewController {
+
+protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListPresenterProtocol? { get set }
+    var tableView: UITableView! { get set }
+    func configTableView()
+    func viewDidLoad()
+    func viewDidDisappear(_ animated: Bool)
+    func updateTableViewAnimated()
+}
+
+
+class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
+    var presenter: ImagesListPresenterProtocol? = {
+        return ImagesListPresenter()
+    }()
     
     private let singleImageSegueIdentifier = "ShowSingleImage"
     private let imagesListService = ImagesListService.shared
@@ -18,26 +32,18 @@ class ImagesListViewController: UIViewController {
         return formatter
     }()
     
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         
-        NotificationCenter.default.addObserver(forName: ImagesListService.DidChangeNotification,
-                                               object: nil,
-                                               queue: .main) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateTableViewAnimated()
-        }
-        imagesListService.fetchPhotosNextPage()
+        presenter?.view = self
+        presenter?.viewDidLoad()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: ImagesListService.DidChangeNotification,
-                                                  object: nil)
+        presenter?.viewDidDisappear()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,6 +56,13 @@ class ImagesListViewController: UIViewController {
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+    
+    func configTableView() {
+        tableView.contentInset = UIEdgeInsets(top: 12,
+                                              left: 0,
+                                              bottom: 12,
+                                              right: 0)
     }
     
     func updateTableViewAnimated() {
@@ -89,9 +102,12 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == imagesListService.photos.count {
-            imagesListService.fetchPhotosNextPage()
-        }
+        
+         if !ProcessInfo.processInfo.arguments.contains("testMode") {
+             if indexPath.row + 1 == imagesListService.photos.count {
+                 imagesListService.fetchPhotosNextPage()
+             }
+         }
     }
 }
 
@@ -111,7 +127,7 @@ extension ImagesListViewController: UITableViewDelegate {
 
 extension ImagesListViewController {
     func config(cell: ImagesListCell, indexPath: IndexPath) {
-        let url = URL(string: photos[indexPath.row].largeImageURL!)
+        let url = URL(string: photos[indexPath.row].thumbImageURL!)
         cell.cellImage.kf.indicatorType = .activity
         cell.cellImage.kf.setImage(with: url,
                                    placeholder: UIImage(named: "blankImage")) { [weak self] _ in

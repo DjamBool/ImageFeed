@@ -10,15 +10,28 @@ import Kingfisher
 import WebKit
 import SwiftKeychainWrapper
 
-class ProfileViewController: UIViewController {
-    
-    private let storageToken = OAuth2TokenStorage.shared
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol { get set }
+    var profileImageView: UIImageView {get set}
+    var nameLabel: UILabel {get set}
+    var loginNameLabel: UILabel {get set}
+    var descriptionLabel: UILabel {get set}
+    func updateProfileDetails()
+    func logout()
+    func showExitConfirmation()
+    func clean()
+}
+
+class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+    var presenter: ProfileViewPresenterProtocol = {
+        return ProfileViewPresenter()
+    }()
     private let profileService = ProfileService.shared
     private var profile : Profile?
     
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    private lazy var profileImageView: UIImageView = {
+    var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(named: "Userpick")
@@ -31,11 +44,12 @@ class ProfileViewController: UIViewController {
             target: self,
             action: #selector(Self.didTapButton))
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "logoutButton"
         button.tintColor = UIColor(named: "YP Red")
         return button
     }()
     
-    private let nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "Екатерина Новикова"
@@ -44,7 +58,7 @@ class ProfileViewController: UIViewController {
         return nameLabel
     }()
     
-    private let loginNameLabel: UILabel = {
+    var loginNameLabel: UILabel = {
         let loginNameLabel = UILabel()
         loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
         loginNameLabel.text = "@ekaterina_nov"
@@ -53,7 +67,7 @@ class ProfileViewController: UIViewController {
         return loginNameLabel
     }()
     
-    private let descriptionLabel: UILabel = {
+    var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.text = "Hello, world!"
@@ -69,39 +83,20 @@ class ProfileViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(loginNameLabel)
         view.addSubview(descriptionLabel)
-        
-        updateProfileDetails(profile: profile)
+        presenter.view = self
+        presenter.viewDidLoad()
         layout()
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.DidChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
-        updateAvatar()
-    }
-    
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-        
-        let cache = ImageCache.default
-        cache.clearDiskCache()
-        cache.clearMemoryCache()
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
-        profileImageView.kf.indicatorType = .activity
-        profileImageView.kf.setImage(with: url,
-                                     options: [.processor(processor)])
+        updateProfileDetails()
     }
     
     @objc func didTapButton() {
         showExitConfirmation()
     }
+    
+    func updateProfileDetails() {
+        presenter.updateProfileDetails(profile: profile)
+    }
+    
     
     func layout() {
         NSLayoutConstraint.activate([
@@ -137,22 +132,11 @@ class ProfileViewController: UIViewController {
         ])
     }
 }
-extension ProfileViewController {
-    private func updateProfileDetails(profile: Profile?) {
-        guard let profile = profileService.profile else {return}
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
-}
 
 extension ProfileViewController {
     func clean() {
-        // Очищаем все куки из хранилища.
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        // Запрашиваем все данные из локального хранилища.
         WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            // Массив полученных записей удаляем из хранилища.
             records.forEach { record in
                 WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
             }
@@ -162,21 +146,11 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     func showExitConfirmation() {
-        let alert = UIAlertController(title: "Пока, пока!",
-                                      message: "Уверены, что хотите выйти?",
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Да", style: .default) {[weak self] _ in
-            guard let self = self else { return }
-            self.logout()
-        }
-        let cancelAction = UIAlertAction(title: "Нет", style: .cancel)
-        
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
+        let alert = presenter.showExitConfirmation()
         present(alert, animated: true, completion: nil)
     }
     
-    private func logout() {
+    func logout() {
         KeychainWrapper.standard.removeAllKeys()
         clean()
         tabBarController?.dismiss(animated: true)
